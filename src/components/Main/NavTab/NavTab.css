@@ -1,0 +1,31 @@
+.nav-tab {
+    background-color: #000;
+    min-height: 66px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-tab__menu {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-tab__link {
+    margin-left: 40px;
+    padding: 0;
+}
+
+.nav-tab__link:first-of-type {
+    margin-left: 0;
+}
+
+.nav-tab__link-text {
+    color: #FFF;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 500;
+}
