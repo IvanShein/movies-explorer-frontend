@@ -4,7 +4,7 @@ import Title from '../Title/Title';
 
 function AboutProject() {
     return (
-        <section className="about-project">
+        <section className="about-project" id="aboutProject">
             <Title text={'О проекте'} />
 
             <div className="about-project__columns">

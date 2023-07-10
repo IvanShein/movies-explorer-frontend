@@ -5,7 +5,7 @@ import './AboutMe.css';
 
 function AboutMe() {
     return (
-        <section className="about-me">
+        <section className="about-me" id="aboutMe">
             {<Title text={'Студент'} />}
 
             <div className='about-me__body'>
