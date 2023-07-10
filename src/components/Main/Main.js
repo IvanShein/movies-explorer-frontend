@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './Main.css';
 
+import Header from '../Header/Header';
 import Promo from './Promo/Promo';
 import NavTab from './NavTab/NavTab';
 import AboutProject from './AboutProject/AboutProject';
@@ -12,6 +12,7 @@ import Portfolio from './Portfolio/Portfolio';
 function Main() {
   return (
     <main className="content">
+      <Header />
       <Promo />
       <NavTab />
       <AboutProject />
