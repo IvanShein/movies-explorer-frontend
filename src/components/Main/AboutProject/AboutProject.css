@@ -5,7 +5,7 @@
 
 .about-project__columns {
     box-sizing: border-box;
-    margin: 70px 0 110px;
+    margin: 69px 0 110px;
     display: flex;
     justify-content: space-between;
 }
