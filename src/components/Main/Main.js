@@ -2,6 +2,7 @@ import React from 'react';
 import './Main.css';
 
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 import Promo from './Promo/Promo';
 import NavTab from './NavTab/NavTab';
 import AboutProject from './AboutProject/AboutProject';
@@ -19,11 +20,7 @@ function Main() {
       <Techs />
       <AboutMe />
       <Portfolio />
-      {/* <section className="main">
-        <h1 className="main__title">main</h1>
-        <p className="main__subtitle">тест</p>
-        <Link className='main__link' to='/'>На главную</Link>
-      </section> */}
+      <Footer />
     </main>
   );
 }

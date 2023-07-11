@@ -53,6 +53,8 @@
 }
 
 .portfolio__link-image {
-    width: 29px;
-    height: 60px;
+    margin: 0;
+    padding: 0 6px 10px 0;
+    width: 20px;
+    height: 20px;
 }
