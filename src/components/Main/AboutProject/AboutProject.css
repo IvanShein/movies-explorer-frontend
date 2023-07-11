@@ -4,7 +4,6 @@
 }
 
 .about-project__columns {
-    box-sizing: border-box;
     margin: 69px 0 110px;
     display: flex;
     justify-content: space-between;
@@ -68,4 +67,27 @@
     font-size: 14px;
     line-height: 17px;
     text-align: center;
+}
+
+@media screen and (max-width: 1023px) {
+    .about-project {
+        padding: 90px 50px;
+    }
+
+    .about-project__columns {
+        margin: 69px 0 93px;
+    }
+    .about-project__column {
+        max-width: 319px;
+    }
+
+
+    .about-project__subtitle {
+        margin: 0 0 22px;
+    }
+
+    .about-project__text {
+        font-size: 12px;
+        line-height: 18px;
+    }
 }

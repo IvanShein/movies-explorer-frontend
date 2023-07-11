@@ -3,23 +3,23 @@
     margin: 0 auto;
     display: flex;
     background-color: #F3C1F8;
-  }
- 
-  .header__link {
+}
+
+.header__link {
     margin: 18px auto 18px 70px;
-  }
-   
-  .header__logo {
+}
+
+.header__logo {
     width: 38px;
     height: 38px;
-  }
+}
 
-  .header__autorisation-menu {
+.header__autorisation-menu {
     margin: 21px 70px 21px auto;
     display: flex;
-  }
-  
-  .header__autorisation-button {
+}
+
+.header__autorisation-button {
     margin: 0 0 0 30px;
     display: flex;
     justify-content: center;
@@ -29,15 +29,25 @@
     font-size: 12px;
     line-height: 16px;
     text-decoration: none;
-  }
-  
-  .header__autorisation-button:first-of-type {
+}
+
+.header__autorisation-button:first-of-type {
     margin: 0;
-  }
-  
-  .header__autorisation-button_black {
+}
+
+.header__autorisation-button_black {
     padding: 0 20px;
     background: #000;
     color: #FFF;
     border-radius: 3px;
-  }
+}
+
+@media screen and (max-width: 1023px) {
+    .header__link {
+        margin: 18px auto 18px 30px;
+    }
+
+    .header__autorisation-menu {
+        margin: 21px 30px 21px auto;
+    }
+}

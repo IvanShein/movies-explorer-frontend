@@ -58,3 +58,19 @@
     width: 20px;
     height: 20px;
 }
+
+@media screen and (max-width: 1023px) {
+    .portfolio {
+        margin: 5px 50px 90px;
+    }
+
+    .portfolio__link-text {
+        font-size: 28px;
+        letter-spacing: -1.12px;
+    }
+
+    .portfolio__link-image {
+        width: 18px;
+        height: 18px;
+    }
+}

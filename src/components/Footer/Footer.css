@@ -50,3 +50,10 @@
     line-height: normal;
     text-decoration: none;
 }
+
+@media screen and (max-width: 1023px) {
+    .footer {
+        margin: 153px 30px 20px;
+        padding: 0;
+    }
+  }
