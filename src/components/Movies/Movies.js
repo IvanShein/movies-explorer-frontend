@@ -1,14 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Header from '../Header/Header';
+import HeaderNavigation from '../Header/HeaderNavigation/HeaderNavigation';
+import Footer from '../Footer/Footer';
+import SearchForm from './SearchForm/SearchForm';
+import MoviesCardList from './MoviesCardList/MoviesCardList';
 import './Movies.css';
 
 function Movies() {
   return (
-    <section className="movies">
-      <h1 className="movies__title">Movies</h1>
-      <p className="movies__subtitle">тест</p>
-      <Link className='movies__link' to='/'>На главную</Link>
-    </section>
+    <div>
+      <Header color={"white"} child={<HeaderNavigation />} />
+      <main className="content">
+        <SearchForm />
+        <MoviesCardList />
+      </main>
+      <Footer />
+    </div>
   );
 }
 

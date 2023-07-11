@@ -1,0 +1,49 @@
+.header__autorisation-menu {
+    margin: 21px 70px 21px auto;
+    display: flex;
+}
+
+.header__autorisation-button {
+    margin: 0 0 0 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    text-decoration: none;
+}
+
+.header__autorisation-button:first-of-type {
+    margin: 0;
+}
+
+.header__autorisation-button_black {
+    padding: 0 20px;
+    background: #000;
+    color: #FFF;
+    border-radius: 3px;
+}
+
+@media screen and (max-width: 1023px) {
+    .header__autorisation-menu {
+        margin: 21px 30px 21px auto;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .header__autorisation-menu {
+        margin: 24px 14px 24px auto;
+    }
+
+    .header__autorisation-button {
+        margin: 0 0 0 15px;
+        font-size: 10px;
+    }
+
+    .header__autorisation-button_black {
+        padding: 0 12px;
+
+    }
+}
