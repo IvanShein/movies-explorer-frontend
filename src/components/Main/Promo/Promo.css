@@ -31,3 +31,18 @@
         margin: 326px 0 342px;
     }
 }
+
+@media screen and (max-width: 767px) {
+    .promo {
+        min-height: 565px;
+        background-position: right 50% top 138px;
+        background-size: 248px;
+    }
+
+    .promo__title {
+        margin: 203px 0 246px;
+        font-size: 31px;
+        line-height: 39px;
+        letter-spacing: -1.24px;
+    }
+}

@@ -29,3 +29,13 @@
     line-height: 16px;
     font-weight: 500;
 }
+
+@media screen and (max-width: 767px) {
+    .nav-tab__link {
+      margin-left: 24px;
+    }
+  
+    .nav-tab__link-text {
+      font-size: 11px;
+    }
+  }

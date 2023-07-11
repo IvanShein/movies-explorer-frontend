@@ -51,3 +51,23 @@
         margin: 21px 30px 21px auto;
     }
 }
+
+@media screen and (max-width: 767px) {
+    .header__link {
+        margin: 18px auto 18px 14px;
+    }
+
+    .header__autorisation-menu {
+        margin: 24px 14px 24px auto;
+    }
+
+    .header__autorisation-button {
+        margin: 0 0 0 15px;
+        font-size: 10px;
+    }
+
+    .header__autorisation-button_black {
+        padding: 0 12px;
+
+    }
+}

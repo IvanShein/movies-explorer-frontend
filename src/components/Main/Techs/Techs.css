@@ -74,3 +74,28 @@
         font-size: 12px;
     }
 }
+
+@media screen and (max-width: 767px) {
+
+    .techs {
+        padding: 70px 18px;
+    }
+
+    .techs__list {
+        padding: 0 47px;
+        justify-content: flex-start;
+    }
+
+    .techs__subtitle {
+        margin: 60px auto 24px;
+        font-size: 30px;
+        line-height: normal;
+        letter-spacing: -1.2px;
+    }
+
+    .techs__text {
+        margin: 0 auto 39px;
+        font-size: 11px;
+        line-height: 16px;
+    }
+}
