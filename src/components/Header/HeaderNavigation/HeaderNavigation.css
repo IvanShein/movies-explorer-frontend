@@ -1,21 +1,28 @@
 .header__navigation {
     margin: 0;
-    padding: 0 0 5px;
+    padding: 2px 2px 5px;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  
-  .header__navigation-menu {
+}
 
-  }
-  
-  .header__navigation-button {
+.header__navigation-menu {
+    margin: 0;
+    padding: 0;
+}
 
-  }
-  
-  .header__profile-menu {
+.header__navigation-button {
+    margin: 0;
+    padding: 0 16px 0 0;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 18px;
+    color: #000;
+    text-decoration: none;
+}
 
-  }
-  
+.header__profile-menu {
+    margin: 0;
+    padding: 0px 43px 0px;
+}

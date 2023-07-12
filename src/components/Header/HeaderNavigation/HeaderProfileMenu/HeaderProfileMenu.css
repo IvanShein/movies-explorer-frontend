@@ -3,12 +3,28 @@
     padding: 0;
     display: flex;
     align-items: center;
-  }
-  
-  .header__profile-button {
+}
 
-  }
-  
-  .header__profile-icon-button {
+.header__profile-button {
+    margin: 0;
+    padding: 0 13px 0 0;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000;
+    text-decoration: none;
+}
 
-  }
+.header__profile-icon-button {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.header__profile-icon {
+    width: 10px;
+    height: 10px;
+}
