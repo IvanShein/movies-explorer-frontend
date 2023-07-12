@@ -2,11 +2,20 @@
     width: 100%;
     margin: 0 auto;
     display: flex;
+    background-color: #F5F5F5;
+}
+
+.header_purple {
     background-color: #F3C1F8;
 }
 
+.header_white {
+    background-color: #FFF;
+}
+
 .header__link {
-    margin: 18px auto 18px 70px;
+    margin: 18px 43px 18px 70px;
+    max-height: 38px;
 }
 
 .header__logo {
@@ -14,60 +23,14 @@
     height: 38px;
 }
 
-.header__autorisation-menu {
-    margin: 21px 70px 21px auto;
-    display: flex;
-}
-
-.header__autorisation-button {
-    margin: 0 0 0 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #000;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    text-decoration: none;
-}
-
-.header__autorisation-button:first-of-type {
-    margin: 0;
-}
-
-.header__autorisation-button_black {
-    padding: 0 20px;
-    background: #000;
-    color: #FFF;
-    border-radius: 3px;
-}
-
 @media screen and (max-width: 1023px) {
     .header__link {
         margin: 18px auto 18px 30px;
-    }
-
-    .header__autorisation-menu {
-        margin: 21px 30px 21px auto;
     }
 }
 
 @media screen and (max-width: 767px) {
     .header__link {
         margin: 18px auto 18px 14px;
-    }
-
-    .header__autorisation-menu {
-        margin: 24px 14px 24px auto;
-    }
-
-    .header__autorisation-button {
-        margin: 0 0 0 15px;
-        font-size: 10px;
-    }
-
-    .header__autorisation-button_black {
-        padding: 0 12px;
-
     }
 }

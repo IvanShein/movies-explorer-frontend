@@ -1,6 +1,8 @@
 .header__autorisation-menu {
     margin: 21px 70px 21px auto;
+    padding: 0;
     display: flex;
+    max-height: 32px;
 }
 
 .header__autorisation-button {

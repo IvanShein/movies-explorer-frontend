@@ -1,19 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import HeaderProfileMenu from './HeaderProfileMenu/HeaderProfileMenu';
 import './HeaderNavigation.css';
 
 function HeaderNavigation() {
     return (
-
-            <nav className="header__autorisation-menu">
-                <Link className="header__autorisation-button link-decoration" to="/signup">
-                    Регистрация
+        <div className="header__navigation">
+            <nav className="header__navigation-menu">
+                <Link className="header__navigation-button link-decoration" to="/movies">
+                    Фильмы
                 </Link>
-                <Link className="header__autorisation-button header__autorisation-button_black link-decoration" to="/signin">
-                    Войти
+                <Link className="header__navigation-button link-decoration" to="/saved-movies">
+                    Сохранённые фильмы
                 </Link>
             </nav>
-
+            <nav className="header__profile-menu">
+                <HeaderProfileMenu />
+            </nav>
+        </div>
     );
 }
 
