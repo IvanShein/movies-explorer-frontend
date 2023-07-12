@@ -1,136 +1,37 @@
-.about-project {
+.movies-card-list {
+    padding: 226px 70px 19px;
     box-sizing: border-box;
-    padding: 110px 70px;
-}
-
-.about-project__columns {
-    margin: 69px 0 110px;
     display: flex;
-    justify-content: space-between;
-}
-
-.about-project__column {
-    max-width: 550px;
-    margin: 0;
-    padding: 0;
-}
-
-.about-project__subtitle {
-    margin: 0 0 26px;
-    padding: 0;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: normal;
-    letter-spacing: -0.8px;
-}
-
-.about-project__text {
-    margin: 0;
-    padding: 0;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-}
-
-.about-project__time {
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    gap: 14px 0;
-}
-
-.about-project__time-title {
-    margin: 0;
-    padding: 0;
-    min-height: 36px;
-    background-color: #F2F2F2;
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: normal;
-    text-align: center;
 }
 
-.about-project__time-title_backend {
-    background-color: #000;
-    color: #FFF;
-}
-
-.about-project__time-text {
+.movies-card-list__grid {
     margin: 0;
     padding: 0;
-    color: #A0A0A0;
+    display: grid;
+    row-gap: 32px;
+    column-gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.movies-card-list__add-button {
+    margin: 50px auto 80px;
+    min-width: 320px;
+    min-height: 36px;
+    background-color: #F9F9F9;
+    border-radius: 6px;
+    font-size: 12px;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    text-align: center;
+    line-height: normal;
+    border: none;
 }
 
-@media screen and (max-width: 1023px) {
-    .about-project {
-        padding: 90px 50px;
-    }
-
-    .about-project__columns {
-        margin: 69px 0 93px;
-    }
-
-    .about-project__column {
-        max-width: 319px;
-    }
-
-    .about-project__subtitle {
-        margin: 0 0 22px;
-    }
-
-    .about-project__text {
-        font-size: 12px;
-        line-height: 18px;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .about-project {
-        padding: 70px 18px;
-    }
-
-    .about-project__columns {
-        margin: 61px 0 3px;
-        flex-direction: column;
-    }
-
-    .about-project__column {
-        margin: 0 0 57px;
-        max-width: 284px;
-    }
-
-    .about-project__subtitle {
-        font-size: 18px;
-        margin: 0 0 16px;
-    }
-
-    .about-project__text {
-        font-size: 11px;
-        line-height: 16px;
-    }
-
-    .about-project__time {
-        grid-template-columns: 1fr 1.84fr;
-        gap: 10px 0;
-    }
-
-    .about-project__time-title {
-        min-height: 35px;
-        font-size: 11px;
-
-    }
-
-    .about-project__time-text {
-        font-size: 11px;
-        line-height: normal;
-    }
+.movies-card-list__add-button:hover {
+    background-color: #E8E8E8;
 
 }
+
+@media screen and (max-width: 1023px) {}
+
+@media screen and (max-width: 767px) {}
