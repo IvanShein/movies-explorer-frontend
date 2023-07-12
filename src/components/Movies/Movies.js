@@ -9,7 +9,7 @@ import './Movies.css';
 
 function Movies() {
   return (
-    <div>
+    <div className="movies">
       <Header color={"white"} child={<HeaderNavigation />} />
       <main className="content">
         <SearchForm />
