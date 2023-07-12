@@ -1,19 +1,30 @@
+import { React, useState } from 'react';
+import Switch from "../../Switch/Switch";
 import './SearchForm.css';
 
 function SearchForm() {
+    const [isShortMovies, setIsShortMovies] = useState(false);
+
     return (
-        <section className="techs" id="techs">
-            <h3 className="techs__subtitle">7 технологий</h3>
-            <p className="techs__text">На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
-            <ul className="techs__list">
-                <li className="techs__element">HTML</li>
-                <li className="techs__element">CSS</li>
-                <li className="techs__element">JS</li>
-                <li className="techs__element">React</li>
-                <li className="techs__element">Git</li>
-                <li className="techs__element">Express.js</li>
-                <li className="techs__element">mongoDB</li>
-            </ul>
+        <section className="search-form">
+            <form className="search-form__form">
+                <input className="search-form__input" type="text" id="search-form" placeholder="Фильм" />
+                <button className="search-form__button link-decoration" type="submit" />
+            </form>
+            {/* <div className="search-form__switch">
+                <form className="search-form__switch-box">
+                    <input className="search-form__switch-box-input" type="checkbox"
+                        onChange={() => setIsShortMovies(!isShortMovies)}
+                        checked={isShortMovies}>
+                    </input>
+                    <span className="search-form__switch-box-slider"></span>
+                    <span className="search-form__switch-box-label">Короткометражки</span>
+                </form>
+            </div> */}
+            <div className="search-form__switch-box">
+                <Switch isOn={isShortMovies} handleToggle={() => setIsShortMovies(!isShortMovies)} />
+                <span className="search-form__switch-box-label">Короткометражки</span>
+            </div>
         </section>
     );
 }

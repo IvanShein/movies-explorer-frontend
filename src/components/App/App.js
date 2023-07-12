@@ -9,8 +9,6 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 
 function App() {
   return (

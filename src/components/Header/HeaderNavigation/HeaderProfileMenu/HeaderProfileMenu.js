@@ -10,7 +10,7 @@ function HeaderProfileMenu() {
                 Аккаунт
             </Link>
             <Link className="header__profile-icon-button link-decoration" to="/profile">
-              <img src={iconProfile} alt="Иконка - ссылка на данные профиля пользователя" />
+              <img className="header__profile-icon" src={iconProfile} alt="Иконка - ссылка на данные профиля пользователя" />
             </Link>
         </nav>
     );
