@@ -75,4 +75,37 @@
     }
 }
 
-@media screen and (max-width: 767px) {}
+@media screen and (max-width: 767px) {
+    .search-form {
+        margin: 80px 12px 0;
+        max-height: 238px;
+    }
+
+    .search-form__input {
+        width: 70%;
+    }
+
+    .search-form__input::placeholder {
+        font-size: 18px;
+    }
+
+    .search-form__button {
+        margin: 4px 2px 9px;
+        padding: 0;
+        width: 80px;
+        height: 34px;
+        border-radius: 34px;
+    }
+
+    .search-form__switch-box {
+        padding: 40px 0 0;
+        justify-content: center;
+    }
+
+    .search-form__switch-box-label {
+        margin: 0 14px 0 0;
+        font-weight: 400;
+        font-size: 11px;
+        line-height: 18px;
+    }
+}

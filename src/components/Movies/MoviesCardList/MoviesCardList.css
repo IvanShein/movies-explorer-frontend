@@ -58,9 +58,24 @@
 }
 
 @media screen and (max-width: 767px) {
+   
+    .movies-card-list {
+        padding: 90px 10px 19px;
+    }
+   
     .movies-card-list__grid {
         row-gap: 20px;
         column-gap: 10px;
         grid-template-columns: 1fr;
+    }
+
+    .movies-card-list__add-button {
+        margin: 80px auto 60px;
+        min-width: 200px;
+        min-height: 16px;
+    }
+
+    .movies-card-list__add-button {
+        margin: 90px auto 70px;
     }
 }
