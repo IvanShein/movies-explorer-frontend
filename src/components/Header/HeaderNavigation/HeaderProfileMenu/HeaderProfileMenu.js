@@ -5,14 +5,14 @@ import './HeaderProfileMenu.css';
 
 function HeaderProfileMenu() {
     return (
-        <nav className="header__profile-menu">
+        <>
             <Link className="header__profile-button link-decoration" to="/profile">
                 Аккаунт
             </Link>
             <Link className="header__profile-icon-button link-decoration" to="/profile">
               <img className="header__profile-icon" src={iconProfile} alt="Иконка - ссылка на данные профиля пользователя" />
             </Link>
-        </nav>
+        </>
     );
 }
 

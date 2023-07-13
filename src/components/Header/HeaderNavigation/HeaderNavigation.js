@@ -1,9 +1,20 @@
-import React from 'react';
+import { React, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HeaderProfileMenu from './HeaderProfileMenu/HeaderProfileMenu';
+import Navigation from '../../Navigation/Navigation';
 import './HeaderNavigation.css';
 
 function HeaderNavigation() {
+    const [isNavigationOpen, setNavigationOpen] = useState(false);
+
+    function handleHamburgerClick() {
+        setNavigationOpen(true);
+    }
+
+    function closeNavigation() {
+        setNavigationOpen(false);
+    }
+
     return (
         <div className="header__navigation">
             <nav className="header__navigation-menu">
@@ -17,6 +28,14 @@ function HeaderNavigation() {
             <nav className="header__profile-menu">
                 <HeaderProfileMenu />
             </nav>
+            <Navigation
+                isNavigationOpen={isNavigationOpen}
+                closeNavigation={closeNavigation}
+            />
+            <button
+                className="header__navigation-hamburger link-decoration"
+                onClick={handleHamburgerClick}
+            />
         </div>
     );
 }
