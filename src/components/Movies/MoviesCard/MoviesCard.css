@@ -24,7 +24,7 @@
     padding: 0;
     font-weight: 500;
     font-size: 13px;
-    line-height: normal; 
+    line-height: normal;
 }
 
 .movies-card__duration {
@@ -37,11 +37,11 @@
 }
 
 .movies-card__button {
-   padding: 11px 0;
+    padding: 11px 0;
     border: none;
     width: 20px;
     height: 20px;
-    background-color:#FDFDFD;
+    background-color: #FDFDFD;
     background-image: url(../../../images/saved.svg);
     background-repeat: no-repeat;
     background-position: center;
@@ -53,7 +53,7 @@
     border: none;
     width: 20px;
     height: 20px;
-    background-color:#FDFDFD;
+    background-color: #FDFDFD;
     background-image: url(../../../images/delete.svg);
     background-repeat: no-repeat;
     background-position: center;
@@ -65,7 +65,7 @@
     border: none;
     width: 20px;
     height: 20px;
-    background-color:#FDFDFD;
+    background-color: #FDFDFD;
     background-image: url(../../../images/not-saved.svg);
     background-repeat: no-repeat;
     background-position: center;
@@ -78,3 +78,22 @@
     width: 100%;
     height: 151px;
 }
+
+@media screen and (max-width: 1023px) {
+    .movies-card {
+        width: 339px;
+        height: 257px;
+        border-radius: 10px;
+    }
+
+    .movies-card__image {
+        height: 190px;
+    }
+
+    .movies-card__info {
+
+        padding: 10px 12px;
+    }
+}
+
+@media screen and (max-width: 767px) {}

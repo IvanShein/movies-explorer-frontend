@@ -47,7 +47,8 @@
     margin: 0px 0px 0px 0px;
     padding: 32px 0px 0px 0px;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .search-form__switch-box-label {
@@ -58,6 +59,20 @@
     margin-left: 14px;
 }
 
-@media screen and (max-width: 1023px) {}
+@media screen and (max-width: 1023px) {
+    .search-form {
+        margin: 80px 30px 0;
+        padding: 0;
+        max-height: 237px;
+    }
+    .search-form__switch-box {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    
+    .search-form__switch-box-label {
+        margin: 0 14px 0 0;
+    }
+}
 
 @media screen and (max-width: 767px) {}
