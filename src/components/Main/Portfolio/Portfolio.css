@@ -62,7 +62,9 @@
 
 @media screen and (max-width: 1023px) {
     .portfolio {
-        margin: 5px 50px 90px;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 5px 50px 77px;
     }
 
     .portfolio__link-text {
@@ -79,8 +81,9 @@
 @media screen and (max-width: 767px) {
 
     .portfolio {
-        margin: 3px 14px 70px;
-        padding: 0;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 3px 14px 57px;
     }
 
     .portfolio__title {
