@@ -1,0 +1,152 @@
+.register__header {
+    margin: 0 auto;
+    padding: 70px 0 0;
+    width: 396px;
+}
+
+.register__header-logo {
+    width: 38px;
+    height: 38px;
+}
+
+.register__header-text {
+    margin: 40px 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: normal;
+}
+
+.register__body {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.register__form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register__input {
+    width: 396px;
+    margin: 0 auto;
+    padding: 0 0 9px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    background: #FFF;
+    border-bottom: 1px solid #E8E8E8;
+    outline: none;
+}
+
+.register__input:focus {
+    border-bottom: 1px solid #000;
+}
+
+.register__placeholder {
+    margin: 0 auto 5px auto;
+    width: 396px;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #A0A0A0;
+    display: block;
+    box-sizing: border-box;
+}
+
+.register__error {
+    min-height: 12px;
+    margin: 6px auto;
+    width: 396px;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #EE3465;
+    display: block;
+    box-sizing: border-box;
+}
+
+.register__error:last-of-type {
+    margin: 6px auto 134px;
+}
+
+
+.register__footer {
+    margin: 0 auto;
+    padding-bottom: 80px;
+}
+
+.register__footer-button {
+    width: 396px;
+    margin: 0 auto 16px;
+    padding: 14px 0 14px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #FFF;
+    background: #000;
+    border-radius: 3px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.register__footer-text {
+    margin: 0 auto 0;
+    color: #A0A0A0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+}
+
+.register__footer-link {
+    text-decoration: none;
+    color: #000;
+}
+
+@media screen and (max-width: 1023px) {
+    .register__header {
+        padding: 232px 0 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .register__header {
+        width: 320px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .register__input {
+        width: 260px;
+    }
+
+    .register__placeholder {
+        width: 260px;
+    }
+
+    .register__error {
+        width: 260px;
+    }
+
+    .register__error:last-of-type {
+        margin: 6px auto 222px;
+    }
+
+    .register__footer-button {
+        width: 260px;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .register__footer-text {
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
