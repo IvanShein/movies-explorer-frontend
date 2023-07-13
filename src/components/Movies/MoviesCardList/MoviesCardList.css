@@ -32,6 +32,14 @@
 
 }
 
+@media screen and (max-width: 1279px) {
+    .movies-card-list__grid {
+        row-gap: 36px;
+        column-gap: 30px;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
 @media screen and (max-width: 1023px) {
     .movies-card-list__grid {
         row-gap: 36px;
