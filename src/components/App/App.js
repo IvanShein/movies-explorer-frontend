@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import React from 'react';
 import './App.css';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -12,6 +13,7 @@ import NotFound from '../NotFound/NotFound';
 
 function App() {
   return (
+    <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
       <Routes>
         <Route path="/movies" element={<Movies />} />
@@ -23,6 +25,7 @@ function App() {
         <Route path='*' element={<NotFound />} />
       </Routes>
     </div >
+    </CurrentUserContext.Provider>
   );
 }
 
