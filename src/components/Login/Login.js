@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import useFormWithValidation from '../../utils/FormValidation';
-import { Link } from 'react-router-dom';
+// import REGEXP_EMAIL from '../../utils/Constants';
 import './Login.css';
 import logo from "../../images/logo.svg";
 
@@ -26,8 +27,7 @@ function Login(props) {
       </header>
       <main className="login__body">
         <form 
-        disabled={!isFormValid ? true : false}
-        className={`login__form ${!isFormValid ? "form-inactive" : ""}`}
+        className={"login__form"}
         onSubmit={handleSubmit}
         >
           <span className="login__placeholder">E-mail</span>
@@ -39,6 +39,7 @@ function Login(props) {
             placeholder="Email"
             value={values.email}
             onChange={handleChange}
+            pattern={/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i}
           />
           <span className="login__error">{errors.email}</span>
           
@@ -53,9 +54,13 @@ function Login(props) {
             onChange={handleChange}
           />
           <span className="login__error">{errors.password}</span>
-          
+
           <div className="login__footer">
-            <button type="submit" className="login__footer-button">
+            <button 
+            type="submit" 
+            className={`login__footer-button ${!isFormValid ? "form-inactive" : ""}`}
+            disabled={!isFormValid ? true : false}
+            >
               Войти
             </button>
             <p className="login__footer-text">

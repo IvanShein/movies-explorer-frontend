@@ -1,4 +1,4 @@
-import { Route, Routes, useHistory } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -19,7 +19,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [allMovies, setAllMovies] = useState([]);
-  const history = useHistory();
+  const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
   const checkToken = (token) => {
@@ -28,7 +28,7 @@ function App() {
         .then((data) => {
           setCurrentUser(data);
           setLoggedIn(true);
-          history.push("/movies");
+          navigate("/movies");
         })
         .catch((error) => {
           console.log(`К сожалению, возникла ошибка: ${error}`);
@@ -50,10 +50,23 @@ function App() {
     checkToken(token)
   }, [loggedIn]);
 
-  const handleRegister = (name, password, email) => {
+  const handleRegister = ({name, password, email}) => {
+    console.log("хэндлсабмит в апп: ", name, password, email);
+    mainApi.registration({name, password, email})
+      .then(() => {
+        navigate("/movies");
+        setLoggedIn(true);
+      })
+      .catch((error) => {
+        setLoggedIn(false);
+        console.log(`К сожалению, возникла ошибка: ${error}`);
+      })
+  };
+
+  const handleLogin = ({name='name', password, email}) => {
     mainApi.registration(name, password, email)
       .then(() => {
-        history.push('/movies');
+        navigate("/movies");
         setLoggedIn(true);
       })
       .catch((error) => {
@@ -69,8 +82,8 @@ function App() {
         <Route path="/movies" element={<Movies />} />
         <Route path="/saved-movies" element={<SavedMovies />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/signin" element={<Login />} />
-        <Route path="/signup" element={<Register onRegister={handleRegister}/>} />
+        <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+        <Route path="/signup" element={<Register handleRegister={handleRegister}/>} />
         <Route path="/" element={<Main />} />
         <Route path='*' element={<NotFound />} />
       </Routes>

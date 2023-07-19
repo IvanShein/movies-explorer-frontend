@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useFormWithValidation from '../../utils/FormValidation';
+// import REGEXP_EMAIL from '../../utils/Constants';
 import './Register.css';
 import logo from "../../images/logo.svg";
 
@@ -9,11 +10,13 @@ function Register(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    props.handleRegister({
-      name: values.name,
-      email: values.email,
-      password: values.password,
-    });
+    // props.handleRegister({
+    //   name: values.name,
+    //   email: values.email,
+    //   password: values.password,
+    // });
+    props.handleRegister(values);
+     console.log("хэндлсабмит в регистер: ", values);
   };
 
   return (
@@ -26,8 +29,7 @@ function Register(props) {
       </header>
       <main className="register__body">
         <form 
-        disabled={!isFormValid ? true : false}
-        className={`register__form ${!isFormValid ? "form-inactive" : ""}`}
+        className={"register__form"}
         onSubmit={handleSubmit}
         >
           <span className="register__placeholder">Имя</span>
@@ -51,6 +53,7 @@ function Register(props) {
             placeholder="Email"
             value={values.email}
             onChange={handleChange}
+            pattern={/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i}
           />
           <span className="register__error">{errors.email}</span>
           
@@ -67,7 +70,11 @@ function Register(props) {
           <span className="register__error">{errors.password}</span>
           
           <div className="register__footer">
-            <button type="submit" className="register__footer-button">
+            <button 
+            type="submit" 
+            className={`register__footer-button ${!isFormValid ? "form-inactive" : ""}`}
+            disabled={!isFormValid ? true : false}
+            >
               Зарегистрироваться
             </button>
             <p className="register__footer-text">

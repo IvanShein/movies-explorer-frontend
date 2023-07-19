@@ -13,6 +13,7 @@ function useFormWithValidation() {
     setValues({...values, [name]: value});
     setErrors({...errors, [name]: target.validationMessage });
     setIsFormValid(event.target.closest("form").checkValidity());
+    // console.log("form-validator: ", values);
   };
 
   const resetForm = useCallback(
