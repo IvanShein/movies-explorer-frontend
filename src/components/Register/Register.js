@@ -16,7 +16,7 @@ function Register(props) {
     //   password: values.password,
     // });
     props.handleRegister(values);
-     console.log("хэндлсабмит в регистер: ", values);
+    //  console.log("хэндлсабмит в регистер: ", values);
   };
 
   return (
@@ -38,6 +38,8 @@ function Register(props) {
             className="register__input register__input_type_name"
             name="name"
             required
+            minLength="2"
+            maxLength="30"
             placeholder="Имя"
             value={values.name}
             onChange={handleChange}
@@ -53,7 +55,6 @@ function Register(props) {
             placeholder="Email"
             value={values.email}
             onChange={handleChange}
-            pattern={/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i}
           />
           <span className="register__error">{errors.email}</span>
           

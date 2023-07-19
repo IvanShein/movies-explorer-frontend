@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import useFormWithValidation from '../../utils/FormValidation';
-// import REGEXP_EMAIL from '../../utils/Constants';
+import REGEXP_EMAIL from '../../utils/FormValidation';
 import './Login.css';
-import logo from "../../images/logo.svg";
+import logo from '../../images/logo.svg';
 
 function Login(props) {
   const { values, errors, handleChange, isFormValid } = useFormWithValidation();
@@ -39,7 +39,7 @@ function Login(props) {
             placeholder="Email"
             value={values.email}
             onChange={handleChange}
-            pattern={/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i}
+            // pattern={REGEXP_EMAIL}
           />
           <span className="login__error">{errors.email}</span>
           

@@ -27,32 +27,34 @@ function App() {
       mainApi.checkToken(token)
         .then((data) => {
           setCurrentUser(data);
+          console.log("Чектокен в АПП: ", data);
           setLoggedIn(true);
           navigate("/movies");
         })
         .catch((error) => {
           console.log(`К сожалению, возникла ошибка: ${error}`);
+          setLoggedIn(false);
+          navigate("/");
         });
     }
   };
 
   useEffect(() => {
     if (loggedIn) {
-      Promise.all([mainApi.checkToken(token), moviesApi.getAllMovies()])
-        .then(([userData, movies]) => {
+      mainApi.checkToken(token)
+        .then((userData) => {
           setCurrentUser(userData);
-          setAllMovies(movies);
         })
         .catch((error) => {
           console.log(`К сожалению, возникла ошибка: ${error}`);
         });
     }
     checkToken(token)
-  }, [loggedIn]);
+  }, [loggedIn, navigate]);
 
-  const handleRegister = ({name, password, email}) => {
-    console.log("хэндлсабмит в апп: ", name, password, email);
-    mainApi.registration({name, password, email})
+  const handleRegister = ({ name, password, email }) => {
+    console.log("хэндлсабмит в апп: ", { name, password, email });
+    mainApi.registration({ name, password, email })
       .then(() => {
         navigate("/movies");
         setLoggedIn(true);
@@ -63,11 +65,17 @@ function App() {
       })
   };
 
-  const handleLogin = ({name='name', password, email}) => {
-    mainApi.registration(name, password, email)
+  const handleLogin = ({ password, email }) => {
+    mainApi.signIn({ password, email })
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+        } else {
+          setLoggedIn(false);
+        }
+      })
       .then(() => {
-        navigate("/movies");
-        setLoggedIn(true);
+        checkToken(token)
       })
       .catch((error) => {
         setLoggedIn(false);
@@ -77,17 +85,17 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-    <div className="page">
-      <Routes>
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/saved-movies" element={<SavedMovies />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
-        <Route path="/signup" element={<Register handleRegister={handleRegister}/>} />
-        <Route path="/" element={<Main />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
-    </div >
+      <div className="page">
+        <Routes>
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/saved-movies" element={<SavedMovies />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+          <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
+          <Route path="/" element={<Main />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </div >
     </CurrentUserContext.Provider>
   );
 }
