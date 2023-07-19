@@ -50,6 +50,18 @@ function App() {
     checkToken(token)
   }, [loggedIn]);
 
+  const handleRegister = (name, password, email) => {
+    mainApi.registration(name, password, email)
+      .then(() => {
+        history.push('/movies');
+        setLoggedIn(true);
+      })
+      .catch((error) => {
+        setLoggedIn(false);
+        console.log(`К сожалению, возникла ошибка: ${error}`);
+      })
+  };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
@@ -58,7 +70,7 @@ function App() {
         <Route path="/saved-movies" element={<SavedMovies />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signin" element={<Login />} />
-        <Route path="/signup" element={<Register />} />
+        <Route path="/signup" element={<Register onRegister={handleRegister}/>} />
         <Route path="/" element={<Main />} />
         <Route path='*' element={<NotFound />} />
       </Routes>

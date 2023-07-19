@@ -1,30 +1,20 @@
 import React from 'react';
-import { useState, useEffect, Redirect, useHistory } from 'react';
+
+import useFormWithValidation from '../../utils/FormValidation';
 import { Link } from 'react-router-dom';
 import './Login.css';
 import logo from "../../images/logo.svg";
 
 function Login(props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { values, errors, handleChange, isFormValid } = useFormWithValidation();
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value)
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    props.handleLogin({
+      email: values.email,
+      password: values.password,
+    });
   };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value)
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    props.onLogin(password, email);
-  };
-
-  useEffect(() => {
-    setEmail('');
-    setPassword('');
-  }, []);
 
   return (
     <div className="login">
@@ -35,7 +25,11 @@ function Login(props) {
         <h1 className="login__header-text">Рады видеть!</h1>
       </header>
       <main className="login__body">
-        <form className="login__form">
+        <form 
+        disabled={!isFormValid ? true : false}
+        className={`login__form ${!isFormValid ? "form-inactive" : ""}`}
+        onSubmit={handleSubmit}
+        >
           <span className="login__placeholder">E-mail</span>
           <input
             type="email"
@@ -43,10 +37,11 @@ function Login(props) {
             name="email"
             required
             placeholder="Email"
-            value={email}
-            onChange={handleEmailChange}
+            value={values.email}
+            onChange={handleChange}
           />
-          <span className="login__error"></span>
+          <span className="login__error">{errors.email}</span>
+          
           <span className="login__placeholder">Пароль</span>
           <input
             type="password"
@@ -54,11 +49,11 @@ function Login(props) {
             name="password"
             required
             placeholder="Пароль"
-            value={password}
-            onChange={handlePasswordChange}
+            value={values.password}
+            onChange={handleChange}
           />
-          />
-          <span className="login__error"></span>
+          <span className="login__error">{errors.password}</span>
+          
           <div className="login__footer">
             <button type="submit" className="login__footer-button">
               Войти

@@ -1,36 +1,20 @@
 import React from 'react';
-import { useState, useEffect, Redirect, useHistory } from 'react';
 import { Link } from 'react-router-dom';
+import useFormWithValidation from '../../utils/FormValidation';
 import './Register.css';
 import logo from "../../images/logo.svg";
 
 function Register(props) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { values, errors, handleChange, isFormValid } = useFormWithValidation();
 
-  const handleNameChange = (e) => {
-    setName(e.target.value)
+  function handleSubmit(event) {
+    event.preventDefault();
+    props.handleRegister({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    });
   };
-  
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value)
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value)
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    props.onRegister(name, password, email);
-  };
-
-  useEffect(() => {
-    setName('');
-    setEmail('');
-    setPassword('');
-  }, []);
 
   return (
     <div className="register">
@@ -41,18 +25,23 @@ function Register(props) {
         <h1 className="register__header-text">Добро пожаловать!</h1>
       </header>
       <main className="register__body">
-        <form className="register__form" onSubmit={handleSubmit}>
+        <form 
+        disabled={!isFormValid ? true : false}
+        className={`register__form ${!isFormValid ? "form-inactive" : ""}`}
+        onSubmit={handleSubmit}
+        >
           <span className="register__placeholder">Имя</span>
           <input
             type="text"
             className="register__input register__input_type_name"
-            name="email"
+            name="name"
             required
             placeholder="Имя"
-            value={name}
-            onChange={handleNameChange}
+            value={values.name}
+            onChange={handleChange}
           />
-          <span className="register__error"></span>
+          <span className="register__error">{errors.name}</span>
+          
           <span className="register__placeholder">E-mail</span>
           <input
             type="email"
@@ -60,11 +49,11 @@ function Register(props) {
             name="email"
             required
             placeholder="Email"
-            value={email}
-            onChange={handleEmailChange}
-
+            value={values.email}
+            onChange={handleChange}
           />
-          <span className="register__error"></span>
+          <span className="register__error">{errors.email}</span>
+          
           <span className="register__placeholder">Пароль</span>
           <input
             type="password"
@@ -72,10 +61,11 @@ function Register(props) {
             name="password"
             required
             placeholder="Пароль"
-            value={password}
-            onChange={handlePasswordChange}
+            value={values.password}
+            onChange={handleChange}
           />
-          <span className="register__error"></span>
+          <span className="register__error">{errors.password}</span>
+          
           <div className="register__footer">
             <button type="submit" className="register__footer-button">
               Зарегистрироваться
