@@ -7,10 +7,10 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 import SAVED_MOVIES_CARDS from '../../utils/SavedMoviesCards';
 import './SavedMovies.css';
 
-function SavedMovies() {
+function SavedMovies({loggedIn}) {
   return (
     <div className="movies">
-      <Header color={"white"} child={<HeaderNavigation />} />
+      <Header color={"white"} loggedIn={loggedIn} />
       <main className="content">
         <SearchForm />
         <MoviesCardList cards={SAVED_MOVIES_CARDS} buttonClassName={'movies-card__button_delete'} />

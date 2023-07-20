@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -14,10 +14,13 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(true);
+  const [infoTooltipMessage, setInfoTooltipMessage] = useState('На сайте произошла ошибка. Приносим свои извинения!');
   const [allMovies, setAllMovies] = useState([]);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
@@ -58,7 +61,8 @@ function App() {
         handleLogin({ password, email });
       })
       .then(() => {
-        checkToken(token)
+        checkToken(token);
+        setLoggedIn(true);
       })
       .catch((error) => {
         setLoggedIn(false);
@@ -102,18 +106,29 @@ function App() {
     navigate("/");
   };
 
+  const closeInfoTooltip = () => {
+    setIsInfoTooltipOpen(false);
+    setInfoTooltipMessage('');
+  };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Routes>
-          <Route path="/movies" element={<Movies />} />
-          <Route path="/saved-movies" element={<SavedMovies />} />
-          <Route path="/profile" element={<Profile handleSignOut={handleSignOut} handleUpdateUserData={handleUpdateUserData} />} />
+          <Route path="/movies" element={<Movies loggedIn={loggedIn} />} />
+          <Route path="/saved-movies" element={<SavedMovies loggedIn={loggedIn} />} />
+          <Route path="/profile" element={<Profile handleSignOut={handleSignOut} handleUpdateUserData={handleUpdateUserData} loggedIn={loggedIn} />} />
           <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
           <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Main loggedIn={loggedIn}/>} />
           <Route path='*' element={<NotFound />} />
         </Routes>
+
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          onClose={closeInfoTooltip}
+          message={infoTooltipMessage}
+        />
       </div >
     </CurrentUserContext.Provider>
   );

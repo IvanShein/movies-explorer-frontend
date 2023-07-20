@@ -28,15 +28,10 @@ function Profile(props) {
       props.handleUpdateUserData(values);
     } 
   };
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-  //   console.log("хэндлсабмит в профайл 1: ", values);
-  //   props.handleUpdateUserData(values);
-  // };
 
   return (
     <div className="body">
-      <Header color={"white"} child={<HeaderNavigation />} />
+      <Header color={"white"} loggedIn={props.loggedIn} />
       <main className="profile">
         <div className="profile__content">
           <h2 className="profile__title">Привет, {currentUser.name}!</h2>

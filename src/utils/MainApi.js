@@ -56,6 +56,54 @@ class MainApi {
             .then(this._handleServerResponse)
     };
 
+    getSavedMovies(token) {
+        return fetch(`${this._baseUrl}/movies`, {
+            method: 'GET',
+            headers: {
+                authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+
+            }
+        })
+            .then(this._handleServerResponse)
+    };
+
+    saveMovie(token, movieData) {
+        return fetch(`${this._baseUrl}/movies`, {
+            method: 'POST',
+            headers: {
+                authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                country: movieData.country,
+                director: movieData.director,
+                duration: movieData.duration,
+                year: movieData.year,
+                description: movieData.description,
+                image: movieData.image.url,
+                trailerLink: movieData.trailerLink,
+                thumbnail: movieData.thumbnail,
+                movieId: movieData.id,
+                nameRU: movieData.nameRU,
+                nameEN: movieData.nameEN,
+              }),
+        })
+            .then(this._handleServerResponse)
+    };
+
+    deleteMovie(token, movieId) {
+        return fetch(`${this._baseUrl}/movies/${movieId}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+
+            }
+        })
+            .then(this._handleServerResponse)
+    };
+
 }
 
 const mainApi = new MainApi({
