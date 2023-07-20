@@ -29,7 +29,6 @@ function App() {
           setCurrentUser(data);
           console.log("Чектокен в АПП: ", data);
           setLoggedIn(true);
-          navigate("/movies");
         })
         .catch((error) => {
           console.log(`К сожалению, возникла ошибка: ${error}`);
@@ -56,8 +55,10 @@ function App() {
     console.log("хэндлсабмит в апп: ", { name, password, email });
     mainApi.registration({ name, password, email })
       .then(() => {
-        navigate("/movies");
-        setLoggedIn(true);
+        handleLogin({ password, email });
+      })
+      .then(() => {
+        checkToken(token)
       })
       .catch((error) => {
         setLoggedIn(false);
@@ -75,12 +76,30 @@ function App() {
         }
       })
       .then(() => {
-        checkToken(token)
+        checkToken(token);
+        navigate("/movies");
       })
       .catch((error) => {
         setLoggedIn(false);
         console.log(`К сожалению, возникла ошибка: ${error}`);
       })
+  };
+
+  function handleUpdateUserData(newUserData) {
+    console.log("хэндлЮзерАпдейт в АПП: ", newUserData);
+    mainApi.userUpdate(token, newUserData)
+      .then((newUserData) => {
+        setCurrentUser(newUserData);
+      })
+      .catch((error) => {
+        console.log(`К сожалению, возникла ошибка: ${error}`);
+      })
+  }
+
+  const handleSignOut = () => {
+    localStorage.clear();
+    setLoggedIn(false);
+    navigate("/");
   };
 
   return (
@@ -89,7 +108,7 @@ function App() {
         <Routes>
           <Route path="/movies" element={<Movies />} />
           <Route path="/saved-movies" element={<SavedMovies />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile handleSignOut={handleSignOut} handleUpdateUserData={handleUpdateUserData} />} />
           <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
           <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
           <Route path="/" element={<Main />} />

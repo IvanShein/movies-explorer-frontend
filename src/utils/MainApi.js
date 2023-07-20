@@ -12,7 +12,7 @@ class MainApi {
     };
 
     registration({password, email, name}) {
-        console.log("хэндлсабмит в АПИ: ", {password, email, name});
+        console.log("Регистрэйшн в АПИ: ", {password, email, name});
         return fetch(`${this._baseUrl}/signup`, {
             method: 'POST',
             headers: this._headers,
@@ -26,6 +26,20 @@ class MainApi {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({ email, password })
+        })
+            .then(this._handleServerResponse)
+    };
+
+    userUpdate(token, {email, name}) {
+        console.log("Юзерапдейт в АПИ: ", {email, name});
+        return fetch(`${this._baseUrl}/users/me`, {
+            method: 'PATCH',
+            headers: {
+                authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+
+            },
+            body: JSON.stringify({ email, name })
         })
             .then(this._handleServerResponse)
     };

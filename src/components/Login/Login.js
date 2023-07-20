@@ -58,7 +58,7 @@ function Login(props) {
           <div className="login__footer">
             <button 
             type="submit" 
-            className={`login__footer-button ${!isFormValid ? "form-inactive" : ""}`}
+            className={`login__footer-button ${!isFormValid ? "form-inactive" : ""} link-decoration`}
             disabled={!isFormValid ? true : false}
             >
               Войти

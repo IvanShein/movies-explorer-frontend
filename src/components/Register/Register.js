@@ -29,7 +29,7 @@ function Register(props) {
       </header>
       <main className="register__body">
         <form 
-        className={"register__form"}
+        className="register__form"
         onSubmit={handleSubmit}
         >
           <span className="register__placeholder">Имя</span>
@@ -73,7 +73,7 @@ function Register(props) {
           <div className="register__footer">
             <button 
             type="submit" 
-            className={`register__footer-button ${!isFormValid ? "form-inactive" : ""}`}
+            className={`register__footer-button ${!isFormValid ? "form-inactive" : ""} link-decoration`}
             disabled={!isFormValid ? true : false}
             >
               Зарегистрироваться
