@@ -51,6 +51,12 @@
 
 .popup__subtitle-status {
     text-align: center;
+    width: 100%;
+    word-wrap: break-word;
+    overflow-y: auto;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
 }
 
 .popup__close-button {

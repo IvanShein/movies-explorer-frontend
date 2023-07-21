@@ -5,7 +5,7 @@ import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
 import Footer from '../Footer/Footer';
 import SearchForm from '../Movies/SearchForm/SearchForm';
-import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
+import MoviesCardList from './MoviesCardList/MoviesCardList';
 
 import './SavedMovies.css';
 

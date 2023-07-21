@@ -20,9 +20,10 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
-  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(true);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [infoTooltipMessage, setInfoTooltipMessage] = useState('На сайте произошла ошибка. Приносим свои извинения!');
   const [allMovies, setAllMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
@@ -38,6 +39,8 @@ function App() {
           console.log(`К сожалению, возникла ошибка: ${error}`);
           setLoggedIn(false);
           navigate("/");
+          setInfoTooltipMessage(`К сожалению, на сервере возникла ошибка: ${error}`);
+          setIsInfoTooltipOpen(true);
         });
     }
   };
@@ -49,6 +52,8 @@ function App() {
           setCurrentUser(userData);
         })
         .catch((error) => {
+          setInfoTooltipMessage(`К сожалению, на сервере возникла ошибка: ${error}`);
+          setIsInfoTooltipOpen(true);
           console.log(`К сожалению, возникла ошибка: ${error}`);
         });
     }
@@ -67,6 +72,8 @@ function App() {
       })
       .catch((error) => {
         setLoggedIn(false);
+        setInfoTooltipMessage(`К сожалению, при регистрации пользователя на сервере возникла ошибка: ${error}`);
+        setIsInfoTooltipOpen(true);
         console.log(`К сожалению, возникла ошибка: ${error}`);
       })
   };
@@ -86,6 +93,8 @@ function App() {
       })
       .catch((error) => {
         setLoggedIn(false);
+        setInfoTooltipMessage(`К сожалению, при авторизации пользователя на сервере возникла ошибка: ${error}`);
+        setIsInfoTooltipOpen(true);
         console.log(`К сожалению, возникла ошибка: ${error}`);
       })
   };
@@ -97,8 +106,36 @@ function App() {
         setCurrentUser(newUserData);
       })
       .catch((error) => {
+        setInfoTooltipMessage(`К сожалению, при обращении к серверу возникла ошибка: ${error}`);
+        setIsInfoTooltipOpen(true);
         console.log(`К сожалению, возникла ошибка: ${error}`);
       })
+  }
+
+  function handleGetAllMovies() {
+    moviesApi.getAllMovies()
+    .then((allMovies) => {
+      setAllMovies(allMovies);
+      localStorage.setItem('allMovies', JSON.stringify(allMovies));
+    })
+    .catch((error) => {
+      setInfoTooltipMessage(`К сожалению, при обращении к серверу https://api.nomoreparties.co/beatfilm-movies возникла ошибка: ${error}`);
+      setIsInfoTooltipOpen(true);
+      console.log(`К сожалению, возникла ошибка: ${error}`);
+    })
+  }
+
+  function handleGetSavedMovies() {
+    mainApi.getSavedMovies()
+    .then((savedMovies) => {
+      setSavedMovies(savedMovies);
+      localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+    })
+    .catch((error) => {
+      setInfoTooltipMessage(`К сожалению, при обращении к серверу возникла ошибка: ${error}`);
+      setIsInfoTooltipOpen(true);
+      console.log(`К сожалению, возникла ошибка: ${error}`);
+    })
   }
 
   const handleSignOut = () => {
@@ -122,6 +159,7 @@ function App() {
             {
               <ProtectedRoute
                 loggedIn={loggedIn}
+                handleGetAllMovies={handleGetAllMovies}
                 component={Movies}>
               </ProtectedRoute>
             }
