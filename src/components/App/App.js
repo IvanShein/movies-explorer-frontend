@@ -15,6 +15,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -115,12 +116,42 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Routes>
-          <Route path="/movies" element={<Movies loggedIn={loggedIn} />} />
-          <Route path="/saved-movies" element={<SavedMovies loggedIn={loggedIn} />} />
-          <Route path="/profile" element={<Profile handleSignOut={handleSignOut} handleUpdateUserData={handleUpdateUserData} loggedIn={loggedIn} />} />
+
+          <Route path="/movies"
+            element=
+            {
+              <ProtectedRoute
+                loggedIn={loggedIn}
+                component={Movies}>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/saved-movies"
+            element=
+            {
+              <ProtectedRoute
+                loggedIn={loggedIn}
+                component={SavedMovies}>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/profile"
+            element=
+            {
+              <ProtectedRoute
+                handleSignOut={handleSignOut}
+                handleUpdateUserData={handleUpdateUserData}
+                loggedIn={loggedIn}
+                component={Profile}>
+              </ProtectedRoute>
+            }
+          />
+
           <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
           <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
-          <Route path="/" element={<Main loggedIn={loggedIn}/>} />
+          <Route path="/" element={<Main loggedIn={loggedIn} />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
 
