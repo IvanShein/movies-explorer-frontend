@@ -4,11 +4,12 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
 function MoviesCardList({ cards, buttonClassName }) {
-    const displaySize = window.innerWidth;
     const [numberOfRenderedMovies, setNumberOfRenderedMovies] = useState(0);
     const { pathname } = useLocation();
+    const displaySize = window.innerWidth;
 
     function handleNumberOfRenderedMovies() {
+        const displaySize = window.innerWidth;
         if (displaySize > 1278) {
             setNumberOfRenderedMovies(16);
         } else if (displaySize > 1022) {
@@ -22,7 +23,13 @@ function MoviesCardList({ cards, buttonClassName }) {
 
     useEffect(() => {
         handleNumberOfRenderedMovies();
-    }, [displaySize]);
+    }, [displaySize, handleNumberOfRenderedMovies]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            window.addEventListener('resize', handleNumberOfRenderedMovies);
+        }, 1000);
+    });
 
     return (
         <section className="movies-card-list">
