@@ -58,7 +58,7 @@ function App() {
         });
     }
     checkToken(token)
-  }, [loggedIn, navigate]);
+  }, [loggedIn]);
 
   const handleRegister = ({ name, password, email }) => {
     console.log("хэндлсабмит в апп: ", { name, password, email });
@@ -101,7 +101,7 @@ function App() {
 
   function handleUpdateUserData(newUserData) {
     console.log("хэндлЮзерАпдейт в АПП: ", newUserData);
-    mainApi.userUpdate(token, newUserData)
+    mainApi.userUpdate(newUserData)
       .then((newUserData) => {
         setCurrentUser(newUserData);
       })
@@ -129,6 +129,36 @@ function App() {
     mainApi.getSavedMovies()
     .then((savedMovies) => {
       setSavedMovies(savedMovies);
+      localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+    })
+    .catch((error) => {
+      setInfoTooltipMessage(`К сожалению, при обращении к серверу возникла ошибка: ${error}`);
+      setIsInfoTooltipOpen(true);
+      console.log(`К сожалению, возникла ошибка: ${error}`);
+    })
+  }
+
+  function handleSaveMovie(movieData) {
+    mainApi.saveMovie(movieData)
+    .then((savedMovie) => {
+      setSavedMovies([...savedMovies, savedMovie]);
+    })
+    .then(() => {
+      localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+    })
+    .catch((error) => {
+      setInfoTooltipMessage(`К сожалению, при обращении к серверу возникла ошибка: ${error}`);
+      setIsInfoTooltipOpen(true);
+      console.log(`К сожалению, возникла ошибка: ${error}`);
+    })
+  }
+
+  function handleDeleteMovie(movieID) {
+    mainApi.deleteMovie(movieID)
+    .then((savedMovie) => {
+      setSavedMovies((savedMovies) => savedMovies.filter((savedMovie) => savedMovie._id !== movieID));
+    })
+    .then(() => {
       localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
     })
     .catch((error) => {

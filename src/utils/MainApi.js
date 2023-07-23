@@ -30,7 +30,8 @@ class MainApi {
             .then(this._handleServerResponse)
     };
 
-    userUpdate(token, {email, name}) {
+    userUpdate({email, name}) {
+        const token = localStorage.getItem('token');
         console.log("Юзерапдейт в АПИ: ", {email, name});
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
@@ -57,6 +58,7 @@ class MainApi {
     };
 
     getSavedMovies(token) {
+        const token = localStorage.getItem('token');
         return fetch(`${this._baseUrl}/movies`, {
             method: 'GET',
             headers: {
@@ -68,7 +70,8 @@ class MainApi {
             .then(this._handleServerResponse)
     };
 
-    saveMovie(token, movieData) {
+    saveMovie(movieData) {
+        const token = localStorage.getItem('token');
         return fetch(`${this._baseUrl}/movies`, {
             method: 'POST',
             headers: {
@@ -92,7 +95,8 @@ class MainApi {
             .then(this._handleServerResponse)
     };
 
-    deleteMovie(token, movieId) {
+    deleteMovie(movieId) {
+        const token = localStorage.getItem('token');
         return fetch(`${this._baseUrl}/movies/${movieId}`, {
             method: 'DELETE',
             headers: {
