@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
 function MoviesCardList({ cards, buttonClassName }) {
-    const [numberOfRenderedMovies, setNumberOfRenderedMovies] = useState(0);
-    const { pathname } = useLocation();
+    let [numberOfRenderedMovies, setNumberOfRenderedMovies] = useState(0);
     const displaySize = window.innerWidth;
 
     function handleNumberOfRenderedMovies() {
@@ -18,12 +16,29 @@ function MoviesCardList({ cards, buttonClassName }) {
             setNumberOfRenderedMovies(8);
         } else {
             setNumberOfRenderedMovies(5);
-        }
-    }
+        };
+        if (numberOfRenderedMovies >= cards.length) {
+            numberOfRenderedMovies = cards.length;
+        };
+    };
+
+    function renderMore() {
+        const displaySize = window.innerWidth;
+        if (displaySize > 1278) {
+            setNumberOfRenderedMovies(numberOfRenderedMovies + 4);
+        } else if (displaySize > 1022) {
+            setNumberOfRenderedMovies(numberOfRenderedMovies + 3);
+        } else {
+            setNumberOfRenderedMovies(numberOfRenderedMovies + 2);
+        };
+        if (numberOfRenderedMovies >= cards.length) {
+            numberOfRenderedMovies = cards.length;
+        };
+    };
 
     useEffect(() => {
         handleNumberOfRenderedMovies();
-    }, [displaySize, handleNumberOfRenderedMovies]);
+    }, [displaySize]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -34,30 +49,27 @@ function MoviesCardList({ cards, buttonClassName }) {
     return (
         <section className="movies-card-list">
             <ul className="movies-card-list__grid">
-                {pathname === "/movies" ?
-                    (<>
-                        {
-                            cards.slice(0, numberOfRenderedMovies).map((card) =>
-                                <MoviesCard
-                                    props={card}
-                                    buttonClassName={buttonClassName}
-                                />
-                            )
-                        }
-                    </>) : (<>
-
-                        {
-                            cards.map((card) =>
-                                <MoviesCard
-                                    props={card}
-                                    buttonClassName={buttonClassName}
-                                />
-                            )
-                        }
-                    </>)
+                {
+                    cards.slice(0, numberOfRenderedMovies).map((card) =>
+                    <li className="movies-card" key={card.id}>
+                        <MoviesCard
+                            props={card}
+                            buttonClassName={buttonClassName}
+                        />
+                    </li>
+                    )
                 }
+
             </ul>
-            <button className="movies-card-list__add-button link-decoration">Ещё</button>
+            {
+                numberOfRenderedMovies < cards.length &&
+                <button
+                    className="movies-card-list__add-button link-decoration"
+                    onClick={renderMore}
+                >
+                    Ещё
+                </button>
+            }
         </section>
     );
 }

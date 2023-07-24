@@ -17,8 +17,8 @@ function MoviesCard({ buttonClassName, props }) {
     }
 
     return (
-        <li className="movies-card">
-            <img src={`https://api.nomoreparties.co/${props.image.url}`} className="movies-card__image" alt="Изображение для фильма в карточке" />
+        <>
+            <img src={`${props.image}`} className="movies-card__image" alt="Изображение для фильма в карточке" />
             <div className="movies-card__info">
                 <div className="movies-card__about">
                     <h3 className="movies-card__name">{nameRU}</h3>
@@ -29,7 +29,7 @@ function MoviesCard({ buttonClassName, props }) {
                     onClick={handleLike}>
                 </button>
             </div>
-        </li>
+        </>
     );
 }
 

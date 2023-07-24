@@ -22,14 +22,14 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [infoTooltipMessage, setInfoTooltipMessage] = useState('На сайте произошла ошибка. Приносим свои извинения!');
-  const [allMovies, setAllMovies] = useState([]);
-  const [savedMovies, setSavedMovies] = useState([]);
+  let [allMovies, setAllMovies] = useState([]);
+  let [savedMovies, setSavedMovies] = useState([]);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
   const checkToken = (token) => {
     if (token) {
-      mainApi.checkToken(token)
+      mainApi.checkToken()
         .then((data) => {
           setCurrentUser(data);
           console.log("Чектокен в АПП: ", data);
@@ -39,7 +39,7 @@ function App() {
           console.log(`К сожалению, возникла ошибка: ${error}`);
           setLoggedIn(false);
           navigate("/");
-          setInfoTooltipMessage(`К сожалению, на сервере возникла ошибка: ${error}`);
+          setInfoTooltipMessage(`Ошибка. ${error}`);
           setIsInfoTooltipOpen(true);
         });
     }
@@ -47,12 +47,12 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
-      mainApi.checkToken(token)
+      mainApi.checkToken()
         .then((userData) => {
           setCurrentUser(userData);
         })
         .catch((error) => {
-          setInfoTooltipMessage(`К сожалению, на сервере возникла ошибка: ${error}`);
+          setInfoTooltipMessage(`Ошибка. ${error}`);
           setIsInfoTooltipOpen(true);
           console.log(`К сожалению, возникла ошибка: ${error}`);
         });
@@ -72,7 +72,9 @@ function App() {
       })
       .catch((error) => {
         setLoggedIn(false);
-        setInfoTooltipMessage(`К сожалению, при регистрации пользователя на сервере возникла ошибка: ${error}`);
+        error.includes("409") 
+        ? setInfoTooltipMessage(`К сожалению, при регистрации пользователя возникла ошибка. Указанный Email уже используется, пожалуйста, укажите другой Email.`)
+        : setInfoTooltipMessage(`К сожалению, при регистрации пользователя возникла ошибка. ${error}`);
         setIsInfoTooltipOpen(true);
         console.log(`К сожалению, возникла ошибка: ${error}`);
       })
@@ -82,18 +84,18 @@ function App() {
     mainApi.signIn({ password, email })
       .then((data) => {
         if (data.token) {
+          setLoggedIn(true);
+          navigate("/movies");
           localStorage.setItem('token', data.token);
         } else {
           setLoggedIn(false);
         }
       })
-      .then(() => {
-        checkToken(token);
-        navigate("/movies");
-      })
       .catch((error) => {
         setLoggedIn(false);
-        setInfoTooltipMessage(`К сожалению, при авторизации пользователя на сервере возникла ошибка: ${error}`);
+        error.includes("401") 
+        ? setInfoTooltipMessage(`К сожалению, при авторизации пользователя возникла ошибка. Неверные Email и пароль. Необходимо указать корректные Email и пароль зарегистрированного пользователя, либо зарегистрироваться.`)
+        : setInfoTooltipMessage(`К сожалению, при авторизации пользователя возникла ошибка. ${error}`);
         setIsInfoTooltipOpen(true);
         console.log(`К сожалению, возникла ошибка: ${error}`);
       })
@@ -106,37 +108,42 @@ function App() {
         setCurrentUser(newUserData);
       })
       .catch((error) => {
-        setInfoTooltipMessage(`К сожалению, при обращении к серверу возникла ошибка: ${error}`);
+        error.includes("409") 
+        ? setInfoTooltipMessage(`К сожалению, при обновлении данных пользователя возникла ошибка. Указанный Email уже используется, пожалуйста, укажите другой Email.`)
+        : setInfoTooltipMessage(`К сожалению, при обновлении данных пользователя возникла ошибка. ${error}`);
         setIsInfoTooltipOpen(true);
         console.log(`К сожалению, возникла ошибка: ${error}`);
       })
   }
 
-  function handleGetAllMovies() {
-    moviesApi.getAllMovies()
-    .then((allMovies) => {
-      setAllMovies(allMovies);
-      localStorage.setItem('allMovies', JSON.stringify(allMovies));
-    })
-    .catch((error) => {
-      setInfoTooltipMessage(`К сожалению, при обращении к серверу https://api.nomoreparties.co/beatfilm-movies возникла ошибка: ${error}`);
-      setIsInfoTooltipOpen(true);
-      console.log(`К сожалению, возникла ошибка: ${error}`);
-    })
-  }
+  // function handleGetAllMovies() {
+  //  moviesApi.getAllMovies()
+  //   .then((allMovies) => {
+  //     setAllMovies(allMovies);
+  //     localStorage.setItem('allMovies', JSON.stringify(allMovies));
+  //     console.log("AllМувис в АПП: ", allMovies);
+  //   })
+  //   .catch((error) => {
+  //     setInfoTooltipMessage(`К сожалению, при обращении к серверу https://api.nomoreparties.co/beatfilm-movies возникла ошибка: ${error}`);
+  //     setIsInfoTooltipOpen(true);
+  //     console.log(`К сожалению, возникла ошибка: ${error}`);
+  //   })
+  // }
 
-  function handleGetSavedMovies() {
-    mainApi.getSavedMovies()
-    .then((savedMovies) => {
-      setSavedMovies(savedMovies);
-      localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
-    })
-    .catch((error) => {
-      setInfoTooltipMessage(`К сожалению, при обращении к серверу возникла ошибка: ${error}`);
-      setIsInfoTooltipOpen(true);
-      console.log(`К сожалению, возникла ошибка: ${error}`);
-    })
-  }
+  // function handleGetSavedMovies() {
+  //   mainApi.getSavedMovies()
+  //   .then((savedMovies) => {
+  //     localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+  //   })
+  //   .then(() => {
+  //     setSavedMovies(savedMovies);
+  //   })
+  //   .catch((error) => {
+  //     setInfoTooltipMessage(`К сожалению, при запросе списка избранных фильмов с сервера возникла ошибка. ${error}`);
+  //     setIsInfoTooltipOpen(true);
+  //     console.log(`К сожалению, возникла ошибка: ${error}`);
+  //   })
+  // }
 
   function handleSaveMovie(movieData) {
     mainApi.saveMovie(movieData)
@@ -147,7 +154,7 @@ function App() {
       localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
     })
     .catch((error) => {
-      setInfoTooltipMessage(`К сожалению, при обращении к серверу возникла ошибка: ${error}`);
+      setInfoTooltipMessage(`К сожалению, при сохранении фильма в избранное возникла ошибка. ${error}`);
       setIsInfoTooltipOpen(true);
       console.log(`К сожалению, возникла ошибка: ${error}`);
     })
@@ -162,7 +169,7 @@ function App() {
       localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
     })
     .catch((error) => {
-      setInfoTooltipMessage(`К сожалению, при обращении к серверу возникла ошибка: ${error}`);
+      setInfoTooltipMessage(`К сожалению, при удалении фильма из списка избранных возникла ошибка. ${error}`);
       setIsInfoTooltipOpen(true);
       console.log(`К сожалению, возникла ошибка: ${error}`);
     })
@@ -189,7 +196,8 @@ function App() {
             {
               <ProtectedRoute
                 loggedIn={loggedIn}
-                handleGetAllMovies={handleGetAllMovies}
+                // handleGetAllMovies={handleGetAllMovies}
+                allMovies={allMovies}
                 component={Movies}>
               </ProtectedRoute>
             }
@@ -200,6 +208,7 @@ function App() {
             {
               <ProtectedRoute
                 loggedIn={loggedIn}
+                // handleGetSavedMovies={handleGetSavedMovies}
                 component={SavedMovies}>
               </ProtectedRoute>
             }

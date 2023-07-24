@@ -45,7 +45,8 @@ class MainApi {
             .then(this._handleServerResponse)
     };
 
-    checkToken(token) {
+    checkToken() {
+        const token = localStorage.getItem('token');
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'GET',
             headers: {
@@ -57,7 +58,7 @@ class MainApi {
             .then(this._handleServerResponse)
     };
 
-    getSavedMovies(token) {
+    getSavedMovies() {
         const token = localStorage.getItem('token');
         return fetch(`${this._baseUrl}/movies`, {
             method: 'GET',
