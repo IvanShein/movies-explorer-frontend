@@ -58,7 +58,7 @@ function App() {
           console.log(`К сожалению, возникла ошибка: ${error}`);
         });
 
-        mainApi.getSavedMovies()
+      mainApi.getSavedMovies()
         .then((savedMovies) => {
           setSavedMovies(savedMovies);
           console.log("SaveDМувис в АПП юзэфекте: ", savedMovies)
@@ -84,9 +84,9 @@ function App() {
       })
       .catch((error) => {
         setLoggedIn(false);
-        error.includes("409") 
-        ? setInfoTooltipMessage(`К сожалению, при регистрации пользователя возникла ошибка. Указанный Email уже используется, пожалуйста, укажите другой Email.`)
-        : setInfoTooltipMessage(`К сожалению, при регистрации пользователя возникла ошибка. ${error}`);
+        error.includes("409")
+          ? setInfoTooltipMessage(`К сожалению, при регистрации пользователя возникла ошибка. Указанный Email уже используется, пожалуйста, укажите другой Email.`)
+          : setInfoTooltipMessage(`К сожалению, при регистрации пользователя возникла ошибка. ${error}`);
         setIsInfoTooltipOpen(true);
         console.log(`К сожалению, возникла ошибка: ${error}`);
       })
@@ -105,9 +105,9 @@ function App() {
       })
       .catch((error) => {
         setLoggedIn(false);
-        error.includes("401") 
-        ? setInfoTooltipMessage(`К сожалению, при авторизации пользователя возникла ошибка. Неверные Email и пароль. Необходимо указать корректные Email и пароль зарегистрированного пользователя, либо зарегистрироваться.`)
-        : setInfoTooltipMessage(`К сожалению, при авторизации пользователя возникла ошибка. ${error}`);
+        error.includes("401")
+          ? setInfoTooltipMessage(`К сожалению, при авторизации пользователя возникла ошибка. Неверные Email и пароль. Необходимо указать корректные Email и пароль зарегистрированного пользователя, либо зарегистрироваться.`)
+          : setInfoTooltipMessage(`К сожалению, при авторизации пользователя возникла ошибка. ${error}`);
         setIsInfoTooltipOpen(true);
         console.log(`К сожалению, возникла ошибка: ${error}`);
       })
@@ -118,11 +118,13 @@ function App() {
     mainApi.userUpdate(newUserData)
       .then((newUserData) => {
         setCurrentUser(newUserData);
+        setInfoTooltipMessage("Данные пользователя успешно сохранены.");
+        setIsInfoTooltipOpen(true);
       })
       .catch((error) => {
-        error.includes("409") 
-        ? setInfoTooltipMessage(`К сожалению, при обновлении данных пользователя возникла ошибка. Указанный Email уже используется, пожалуйста, укажите другой Email.`)
-        : setInfoTooltipMessage(`К сожалению, при обновлении данных пользователя возникла ошибка. ${error}`);
+        error.includes("409")
+          ? setInfoTooltipMessage(`К сожалению, при обновлении данных пользователя возникла ошибка. Указанный Email уже используется, пожалуйста, укажите другой Email.`)
+          : setInfoTooltipMessage(`К сожалению, при обновлении данных пользователя возникла ошибка. ${error}`);
         setIsInfoTooltipOpen(true);
         console.log(`К сожалению, возникла ошибка: ${error}`);
       })
@@ -159,27 +161,27 @@ function App() {
 
   function handleSaveMovie(movieData) {
     mainApi.saveMovie(movieData)
-    .then((savedMovie) => {
-      setSavedMovies([savedMovie, ...savedMovies]);
-    })
-    .catch((error) => {
-      setInfoTooltipMessage(`К сожалению, при сохранении фильма в избранное возникла ошибка. ${error}`);
-      setIsInfoTooltipOpen(true);
-      console.log(`К сожалению, возникла ошибка: ${error}`);
-    })
+      .then((savedMovie) => {
+        setSavedMovies([savedMovie, ...savedMovies]);
+      })
+      .catch((error) => {
+        setInfoTooltipMessage(`К сожалению, при сохранении фильма в избранное возникла ошибка. ${error}`);
+        setIsInfoTooltipOpen(true);
+        console.log(`К сожалению, возникла ошибка: ${error}`);
+      })
   }
 
   function handleDeleteMovie(movieID) {
     let movieData = savedMovies.find((savedMovie) => savedMovie.movieId === movieID);
-      mainApi.deleteMovie(movieData._id)
-    .then(() => {
-      setSavedMovies((savedMovies) => savedMovies.filter((savedMovie) => savedMovie.movieId !== movieID));
-    })
-    .catch((error) => {
-      setInfoTooltipMessage(`К сожалению, при удалении фильма из списка избранных возникла ошибка. ${error}`);
-      setIsInfoTooltipOpen(true);
-      console.log(`К сожалению, возникла ошибка: ${error}`);
-    })
+    mainApi.deleteMovie(movieData._id)
+      .then(() => {
+        setSavedMovies((savedMovies) => savedMovies.filter((savedMovie) => savedMovie.movieId !== movieID));
+      })
+      .catch((error) => {
+        setInfoTooltipMessage(`К сожалению, при удалении фильма из списка избранных возникла ошибка. ${error}`);
+        setIsInfoTooltipOpen(true);
+        console.log(`К сожалению, возникла ошибка: ${error}`);
+      })
   }
 
   const handleSignOut = () => {
@@ -209,8 +211,8 @@ function App() {
                 allMovies={allMovies}
                 component={Movies}
                 savedMovies={savedMovies}
-                >
-                
+              >
+
               </ProtectedRoute>
             }
           />
@@ -225,7 +227,7 @@ function App() {
                 component={SavedMovies}
                 savedMovies={savedMovies}
                 isLoading={isLoading}
-                >
+              >
               </ProtectedRoute>
             }
           />
@@ -242,8 +244,18 @@ function App() {
             }
           />
 
-          <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
-          <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
+          <Route path="/signin" element={
+            loggedIn
+              ? (<Navigate to="/" />)
+              : (<Login handleLogin={handleLogin} />)
+          } />
+
+          <Route path="/signup" element={
+            loggedIn
+              ? (<Navigate to="/" />)
+              : (<Register handleRegister={handleRegister} />)
+          } />
+
           <Route path="/" element={<Main loggedIn={loggedIn} />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
