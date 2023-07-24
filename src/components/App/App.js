@@ -20,6 +20,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [infoTooltipMessage, setInfoTooltipMessage] = useState('На сайте произошла ошибка. Приносим свои извинения!');
   let [allMovies, setAllMovies] = useState([]);
@@ -56,9 +57,20 @@ function App() {
           setIsInfoTooltipOpen(true);
           console.log(`К сожалению, возникла ошибка: ${error}`);
         });
+
+        mainApi.getSavedMovies()
+        .then((savedMovies) => {
+          setSavedMovies(savedMovies);
+          console.log("SaveDМувис в АПП юзэфекте: ", savedMovies)
+        })
+        .catch((error) => {
+          setInfoTooltipMessage(`К сожалению, при запросе списка избранных фильмов с сервера возникла ошибка. ${error}`);
+          setIsInfoTooltipOpen(true);
+          console.log(`К сожалению, возникла ошибка: ${error}`);
+        })
     }
     checkToken(token)
-  }, [loggedIn]);
+  }, [loggedIn, navigate, token]);
 
   const handleRegister = ({ name, password, email }) => {
     console.log("хэндлсабмит в апп: ", { name, password, email });
@@ -148,10 +160,7 @@ function App() {
   function handleSaveMovie(movieData) {
     mainApi.saveMovie(movieData)
     .then((savedMovie) => {
-      setSavedMovies([...savedMovies, savedMovie]);
-    })
-    .then(() => {
-      localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+      setSavedMovies([savedMovie, ...savedMovies]);
     })
     .catch((error) => {
       setInfoTooltipMessage(`К сожалению, при сохранении фильма в избранное возникла ошибка. ${error}`);
@@ -161,12 +170,10 @@ function App() {
   }
 
   function handleDeleteMovie(movieID) {
-    mainApi.deleteMovie(movieID)
-    .then((savedMovie) => {
-      setSavedMovies((savedMovies) => savedMovies.filter((savedMovie) => savedMovie._id !== movieID));
-    })
+    let movieData = savedMovies.find((savedMovie) => savedMovie.movieId === movieID);
+      mainApi.deleteMovie(movieData._id)
     .then(() => {
-      localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+      setSavedMovies((savedMovies) => savedMovies.filter((savedMovie) => savedMovie.movieId !== movieID));
     })
     .catch((error) => {
       setInfoTooltipMessage(`К сожалению, при удалении фильма из списка избранных возникла ошибка. ${error}`);
@@ -198,8 +205,12 @@ function App() {
                 loggedIn={loggedIn}
                 // handleGetAllMovies={handleGetAllMovies}
                 handleDeleteMovie={handleDeleteMovie}
+                handleSaveMovie={handleSaveMovie}
                 allMovies={allMovies}
-                component={Movies}>
+                component={Movies}
+                savedMovies={savedMovies}
+                >
+                
               </ProtectedRoute>
             }
           />
@@ -211,7 +222,10 @@ function App() {
                 loggedIn={loggedIn}
                 // handleGetSavedMovies={handleGetSavedMovies}
                 handleDeleteMovie={handleDeleteMovie}
-                component={SavedMovies}>
+                component={SavedMovies}
+                savedMovies={savedMovies}
+                isLoading={isLoading}
+                >
               </ProtectedRoute>
             }
           />

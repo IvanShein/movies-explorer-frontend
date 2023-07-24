@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
-function MoviesCardList({ cards, buttonClassName }) {
+function MoviesCardList({ cards, buttonClassName, savedMovies, handleAddMovieLike, handleDeleteMovieLike }) {
     let [numberOfRenderedMovies, setNumberOfRenderedMovies] = useState(0);
     const displaySize = window.innerWidth;
 
@@ -43,8 +43,14 @@ function MoviesCardList({ cards, buttonClassName }) {
     useEffect(() => {
         setTimeout(() => {
             window.addEventListener('resize', handleNumberOfRenderedMovies);
-        }, 1000);
+        }, 300);
     });
+
+    function isMovieSaved(movie) {
+        const truth = savedMovies.find((savedMovie) => savedMovie.movieId === movie.id);
+        console.log("Фнкция определения лайкнутости (savedMovie._id, movie.id, вывод, сэвд мувис): ", truth, savedMovies);
+        return truth;
+      }
 
     return (
         <section className="movies-card-list">
@@ -53,9 +59,11 @@ function MoviesCardList({ cards, buttonClassName }) {
                     cards.slice(0, numberOfRenderedMovies).map((card) =>
                     <li className="movies-card" key={card.id}>
                         <MoviesCard
-                            props={card}
+                            card={card}
                             buttonClassName={buttonClassName}
-                            // isLiked={isMovieInSavedMoviesList(card)}
+                            isLiked={isMovieSaved(card)}
+                            handleDeleteMovieLike={handleDeleteMovieLike}
+                            handleAddMovieLike={handleAddMovieLike}
                         />
                     </li>
                     )

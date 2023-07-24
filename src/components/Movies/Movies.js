@@ -15,7 +15,6 @@ import './Movies.css';
 
 function Movies(props) {
   const [allMovies, setAllMovies] = useState([]);
-  const [savedMovies, setSavedMovies] = useState([]);
   const [renderedMovies, setRenderedMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isShortMovies, setIsShortMovies] = useState(false);
@@ -24,39 +23,13 @@ function Movies(props) {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [infoTooltipMessage, setInfoTooltipMessage] = useState('На сайте произошла ошибка. Приносим свои извинения!');
   const allMoviesList = JSON.parse(localStorage.getItem('allMovies'));
-  const allSavedMoviesList = JSON.parse(localStorage.getItem('savedMovies'));
-
-
+  
   // function handleFilter(movies, query, isShort) { 
   //   setFilteredMovies(isShort ? filterByDuration(filterByQuery(movies, query)) : filterByQuery(movies, query));
   //   localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
   // }
 
-
-  function getSavedMovies() {
-    if (!allSavedMoviesList) {
-      setIsLoading(true);
-      mainApi.getSavedMovies()
-        .then((savedMovies) => {
-          setSavedMovies(savedMovies);
-          localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
-        })
-        .catch((error) => {
-          setInfoTooltipMessage(`К сожалению, при обращении к серверу https://api.nomoreparties.co/beatfilm-movies возникла ошибка: ${error}`);
-          setIsInfoTooltipOpen(true);
-          console.log(`К сожалению, возникла ошибка: ${error}`);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    } else {
-      setSavedMovies(allSavedMoviesList);
-    }
-  }
-
-
   function handleSearchMovies() {
-    getSavedMovies();
     if(!allMoviesList) {
     setIsLoading(true);
     moviesApi.getAllMovies()
@@ -79,11 +52,14 @@ function Movies(props) {
     }
   }
 
-  // function isMovieInSavedMoviesList(movie) {
-  //   getSavedMovies();
-  //   console.log("Это результат функции isMovieInSavedMoviesList: ", savedMovies.find((savedMovie) => savedMovie._id === movie.id));
-  //   return savedMovies.find((savedMovie) => savedMovie._id === movie.id);
-  // }
+  function handleDeleteMovieLike(movieId) {
+    props.handleDeleteMovie(movieId);
+  };
+
+  function handleAddMovieLike(movie) {
+    props.handleSaveMovie(movie);
+  };
+
 
   const closeInfoTooltip = () => {
     setIsInfoTooltipOpen(false);
@@ -100,7 +76,9 @@ function Movies(props) {
         : <MoviesCardList 
         cards={allMovies} 
         buttonClassName={'movies-card__button'}
-        // isMovieInSavedMoviesList={isMovieInSavedMoviesList}
+        savedMovies={props.savedMovies}
+        handleAddMovieLike={handleAddMovieLike}
+        handleDeleteMovieLike={handleDeleteMovieLike}
          />
         }
       </main>

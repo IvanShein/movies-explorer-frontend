@@ -1,13 +1,13 @@
-import { React, useState } from 'react';
+import { React } from 'react';
 import './MoviesCardSavedMovies.css';
 
 function MoviesCard({ handleDeleteMovie, buttonClassName, props }) {
-    const { duration, nameRU, isSaved } = props;
+    const { duration, nameRU } = props;
 
-    const [isLiked, setIsLiked] = useState(isSaved);
+    // const [isLiked, setIsLiked] = useState(isSaved);
 
     function handleDeleteClick() {
-        handleDeleteMovie(props._id);
+        handleDeleteMovie(props.movieId);
     }
 
     function minsToHoursMins(duration) {
