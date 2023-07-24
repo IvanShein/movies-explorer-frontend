@@ -197,6 +197,7 @@ function App() {
               <ProtectedRoute
                 loggedIn={loggedIn}
                 // handleGetAllMovies={handleGetAllMovies}
+                handleDeleteMovie={handleDeleteMovie}
                 allMovies={allMovies}
                 component={Movies}>
               </ProtectedRoute>
@@ -209,6 +210,7 @@ function App() {
               <ProtectedRoute
                 loggedIn={loggedIn}
                 // handleGetSavedMovies={handleGetSavedMovies}
+                handleDeleteMovie={handleDeleteMovie}
                 component={SavedMovies}>
               </ProtectedRoute>
             }

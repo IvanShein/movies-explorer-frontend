@@ -1,13 +1,13 @@
 import { React, useState } from 'react';
-import './MoviesCard.css';
+import './MoviesCardSavedMovies.css';
 
-function MoviesCard({ buttonClassName, props }) {
+function MoviesCard({ handleDeleteMovie, buttonClassName, props }) {
     const { duration, nameRU, isSaved } = props;
 
     const [isLiked, setIsLiked] = useState(isSaved);
 
-    function handleLike() {
-        setIsLiked(!isLiked);
+    function handleDeleteClick() {
+        handleDeleteMovie(props._id);
     }
 
     function minsToHoursMins(duration) {
@@ -26,7 +26,7 @@ function MoviesCard({ buttonClassName, props }) {
                 </div>
                 <button
                     className={`${buttonClassName} link-decoration`}
-                    onClick={handleLike}>
+                    onClick={handleDeleteClick}>
                 </button>
             </div>
         </>

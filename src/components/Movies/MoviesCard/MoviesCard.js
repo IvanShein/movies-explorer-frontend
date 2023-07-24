@@ -1,13 +1,12 @@
 import { React, useState } from 'react';
 import './MoviesCard.css';
 
-function MoviesCard({ buttonClassName, props }) {
-    const { duration, nameRU, isSaved } = props;
+function MoviesCard({ buttonClassName, props, isLiked=true }) {
+    const { duration, nameRU } = props;
+    const [isLikedCard, setIsLikedCard] = useState(false);
 
-    const [isLiked, setIsLiked] = useState(isSaved);
-
-    function handleLike() {
-        setIsLiked(!isLiked);
+    function handleLikeClick() {
+        setIsLikedCard(!isLikedCard);
     }
 
     function minsToHoursMins(duration) {
@@ -25,8 +24,8 @@ function MoviesCard({ buttonClassName, props }) {
                     <p className="movies-card__duration">{minsToHoursMins(duration)}</p>
                 </div>
                 <button
-                    className={`${buttonClassName} ${isLiked ? "" : "movies-card__button_not-liked"} link-decoration`}
-                    onClick={handleLike}>
+                    className={`${buttonClassName} ${isLikedCard ? "" : "movies-card__button_not-liked"} link-decoration`}
+                    onClick={handleLikeClick}>
                 </button>
             </div>
         </>

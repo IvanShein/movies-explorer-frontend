@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 
 import mainApi from '../../utils/MainApi';
 import Footer from '../Footer/Footer';
 import Preloader from '../Movies/Preloader/Preloader';
-import SearchForm from '../Movies/SearchForm/SearchForm';
-import MoviesCardList from './MoviesCardList/MoviesCardList';
+import SearchFormSavedMovies from './SearchFormSavedMovies/SearchFormSavedMovies';
+import MoviesCardListSavedMovies from './MoviesCardListSavedMovies/MoviesCardListSavedMovies';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 import './SavedMovies.css';
@@ -17,23 +17,8 @@ function SavedMovies(props) {
   const [infoTooltipMessage, setInfoTooltipMessage] = useState('На сайте произошла ошибка. Приносим свои извинения!');
   const allSavedMoviesList = JSON.parse(localStorage.getItem('savedMovies'));
 
-  // function handleSearchMovies() {
-  //   moviesApi.getAllMovies()
-  //   .then((allMovies) => {
-  //     setAllMovies(allMovies);
-  //     localStorage.setItem('allMovies', JSON.stringify(allMovies));
-  //   })
-
-  // }
-
-  // function handleSearchMovies() {
-  //   props.handleGetSavedMovies()
-  //   setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')));
-  //   console.log("SaveDМувис в СайвдМувис: ", savedMovies);
-  // };
-
   function handleSearchMovies() {
-    if (!allSavedMoviesList) {
+    if (!allSavedMoviesList || allSavedMoviesList.length === 0) {
       setIsLoading(true);
       mainApi.getSavedMovies()
         .then((savedMovies) => {
@@ -55,6 +40,11 @@ function SavedMovies(props) {
     }
   }
 
+  function handleDeleteMovieFromSaved(movieId) {
+    props.handleDeleteMovie(movieId);
+    setSavedMovies(savedMovies.filter((movie) => movie._id !== movieId))
+  };
+
   const closeInfoTooltip = () => {
     setIsInfoTooltipOpen(false);
     setInfoTooltipMessage('');
@@ -64,10 +54,14 @@ function SavedMovies(props) {
     <div className="movies">
       <Header color={"white"} loggedIn={props.loggedIn} />
       <main className="content">
-        <SearchForm onSearch={handleSearchMovies} />
+        <SearchFormSavedMovies onSearch={handleSearchMovies} />
         {isLoading
           ? <Preloader />
-          : <MoviesCardList cards={savedMovies} buttonClassName={'movies-card__button_delete'} />
+          : <MoviesCardListSavedMovies 
+          cards={savedMovies} 
+          buttonClassName={'movies-card__button_delete'} 
+          handleDeleteMovieFromSaved={handleDeleteMovieFromSaved}
+          />
         }
       </main>
       <Footer />

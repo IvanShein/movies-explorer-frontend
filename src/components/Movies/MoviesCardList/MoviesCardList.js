@@ -55,6 +55,7 @@ function MoviesCardList({ cards, buttonClassName }) {
                         <MoviesCard
                             props={card}
                             buttonClassName={buttonClassName}
+                            // isLiked={isMovieInSavedMoviesList(card)}
                         />
                     </li>
                     )

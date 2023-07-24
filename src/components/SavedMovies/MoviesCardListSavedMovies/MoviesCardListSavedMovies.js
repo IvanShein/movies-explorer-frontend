@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import MoviesCard from '../MoviesCard/MoviesCard';
-import './MoviesCardList.css';
+import React from 'react';
+import MoviesCardSavedMovies from '../MoviesCardSavedMovies/MoviesCardSavedMovies';
+import './MoviesCardListSavedMovies.css';
 
-function MoviesCardList({ cards, buttonClassName }) {
+function MoviesCardList({ cards, buttonClassName, handleDeleteMovieFromSaved }) {
 
 
     return (
@@ -13,9 +12,10 @@ function MoviesCardList({ cards, buttonClassName }) {
                     cards.map((card) =>
 
                         <li className="movies-card" key={card._id}>
-                            <MoviesCard
+                            <MoviesCardSavedMovies
                                 props={card}
                                 buttonClassName={buttonClassName}
+                                handleDeleteMovie={handleDeleteMovieFromSaved}
                             />
                         </li>
                     )
