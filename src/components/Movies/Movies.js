@@ -5,6 +5,7 @@ import Footer from '../Footer/Footer';
 import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
+import Preloader from './Preloader/Preloader';
 import MOVIES_CARDS from '../../utils/MoviesCards';
 import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
@@ -19,9 +20,11 @@ function Movies(props) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isShortMovies, setIsShortMovies] = useState(false);
   const [isNoMovies, setIsNoMovies] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [infoTooltipMessage, setInfoTooltipMessage] = useState('На сайте произошла ошибка. Приносим свои извинения!');
   const allMoviesList = JSON.parse(localStorage.getItem('allMovies'));
+  const allSavedMoviesList = JSON.parse(localStorage.getItem('savedMovies'));
 
 
   // function handleFilter(movies, query, isShort) { 
@@ -30,8 +33,9 @@ function Movies(props) {
   // }
 
 
-  function handleSearchMovies() {
+  function handleSearchMovies(searchQuery) {
     if(!allMoviesList) {
+    setIsLoading(true);
     moviesApi.getAllMovies()
       .then((allMovies) => {
         setAllMovies(allMovies);
@@ -43,6 +47,9 @@ function Movies(props) {
         setIsInfoTooltipOpen(true);
         console.log(`К сожалению, возникла ошибка: ${error}`);
       })
+      .finally(() => {
+        setIsLoading(false);
+      });
     } else {
       setAllMovies(allMoviesList);
       console.log("AllМувис в Мувис Из ЛокалСторадж: ", allMoviesList);
@@ -64,7 +71,10 @@ function Movies(props) {
       <Header color={"white"} loggedIn={props.loggedIn} />
       <main className="content">
         <SearchForm onSearch={handleSearchMovies} isShortMovies={isShortMovies} setIsShortMovies={setIsShortMovies} />
-        <MoviesCardList cards={allMovies} buttonClassName={'movies-card__button'} />
+        {isLoading
+        ? <Preloader />
+        : <MoviesCardList cards={allMovies} buttonClassName={'movies-card__button'} />
+        }
       </main>
       <Footer />
       <InfoTooltip

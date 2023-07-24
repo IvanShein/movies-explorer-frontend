@@ -59,6 +59,14 @@
     margin-left: 14px;
 }
 
+.search-form__input-error {
+   display: block;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+}
+
 @media screen and (max-width: 1023px) {
     .search-form {
         margin: 80px 30px 0;
