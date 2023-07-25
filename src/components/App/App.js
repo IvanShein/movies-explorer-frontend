@@ -6,7 +6,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import './App.css';
 
 import mainApi from '../../utils/MainApi';
-import moviesApi from '../../utils/MoviesApi';
+// import moviesApi from '../../utils/MoviesApi';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -33,7 +33,6 @@ function App() {
       mainApi.checkToken()
         .then((data) => {
           setCurrentUser(data);
-          console.log("Чектокен в АПП: ", data);
           setLoggedIn(true);
         })
         .catch((error) => {
@@ -61,7 +60,6 @@ function App() {
       mainApi.getSavedMovies()
         .then((savedMovies) => {
           setSavedMovies(savedMovies);
-          console.log("SaveDМувис в АПП юзэфекте: ", savedMovies)
         })
         .catch((error) => {
           setInfoTooltipMessage(`К сожалению, при запросе списка избранных фильмов с сервера возникла ошибка. ${error}`);
@@ -73,7 +71,6 @@ function App() {
   }, [loggedIn, navigate, token]);
 
   const handleRegister = ({ name, password, email }) => {
-    console.log("хэндлсабмит в апп: ", { name, password, email });
     mainApi.registration({ name, password, email })
       .then(() => {
         handleLogin({ password, email });
@@ -130,35 +127,6 @@ function App() {
       })
   }
 
-  // function handleGetAllMovies() {
-  //  moviesApi.getAllMovies()
-  //   .then((allMovies) => {
-  //     setAllMovies(allMovies);
-  //     localStorage.setItem('allMovies', JSON.stringify(allMovies));
-  //     console.log("AllМувис в АПП: ", allMovies);
-  //   })
-  //   .catch((error) => {
-  //     setInfoTooltipMessage(`К сожалению, при обращении к серверу https://api.nomoreparties.co/beatfilm-movies возникла ошибка: ${error}`);
-  //     setIsInfoTooltipOpen(true);
-  //     console.log(`К сожалению, возникла ошибка: ${error}`);
-  //   })
-  // }
-
-  // function handleGetSavedMovies() {
-  //   mainApi.getSavedMovies()
-  //   .then((savedMovies) => {
-  //     localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
-  //   })
-  //   .then(() => {
-  //     setSavedMovies(savedMovies);
-  //   })
-  //   .catch((error) => {
-  //     setInfoTooltipMessage(`К сожалению, при запросе списка избранных фильмов с сервера возникла ошибка. ${error}`);
-  //     setIsInfoTooltipOpen(true);
-  //     console.log(`К сожалению, возникла ошибка: ${error}`);
-  //   })
-  // }
-
   function handleSaveMovie(movieData) {
     mainApi.saveMovie(movieData)
       .then((savedMovie) => {
@@ -205,7 +173,6 @@ function App() {
             {
               <ProtectedRoute
                 loggedIn={loggedIn}
-                // handleGetAllMovies={handleGetAllMovies}
                 handleDeleteMovie={handleDeleteMovie}
                 handleSaveMovie={handleSaveMovie}
                 allMovies={allMovies}
@@ -222,7 +189,6 @@ function App() {
             {
               <ProtectedRoute
                 loggedIn={loggedIn}
-                // handleGetSavedMovies={handleGetSavedMovies}
                 handleDeleteMovie={handleDeleteMovie}
                 component={SavedMovies}
                 savedMovies={savedMovies}

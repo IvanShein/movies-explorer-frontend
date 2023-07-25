@@ -13,12 +13,10 @@ import { filterByQuery, filterByDuration } from '../../utils/Utils';
 import './Movies.css';
 
 function Movies(props) {
-  const [allMovies, setAllMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [renderedMovies, setRenderedMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isShortMovies, setIsShortMovies] = useState(false);
-  const [isNoMovies, setIsNoMovies] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [infoTooltipMessage, setInfoTooltipMessage] = useState('На сайте произошла ошибка. Приносим свои извинения!');
@@ -54,7 +52,7 @@ function Movies(props) {
           handleFilter(allMovies, searchQuery, isShortMovies);
         })
         .catch((error) => {
-          setInfoTooltipMessage(`К сожалению, при обращении к серверу https://api.nomoreparties.co/beatfilm-movies возникла ошибка: ${error}`);
+          setInfoTooltipMessage(`Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз: ${error}`);
           setIsInfoTooltipOpen(true);
           console.log(`К сожалению, возникла ошибка: ${error}`);
         })
@@ -83,18 +81,6 @@ function Movies(props) {
       }
     }
   }, []);
-
-  useEffect(() => {
-    if (localStorage.getItem('savedSearchQuery')) {
-      if (renderedMovies.length === 0) {
-        setIsNoMovies(true);
-      } else {
-        setIsNoMovies(false);
-      }
-    } else {
-      setIsNoMovies(false);
-    }
-  }, [renderedMovies]);
 
   const handleDeleteMovieLike = (movieId) => {
     props.handleDeleteMovie(movieId);
@@ -130,7 +116,6 @@ function Movies(props) {
             savedMovies={props.savedMovies}
             handleAddMovieLike={handleAddMovieLike}
             handleDeleteMovieLike={handleDeleteMovieLike}
-            isNoMovies={isNoMovies}
           />
         }
       </main>

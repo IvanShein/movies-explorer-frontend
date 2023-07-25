@@ -5,7 +5,7 @@ import useFormWithValidation from '../../../utils/FormValidation';
 import './SearchFormSavedMovies.css';
 
 function SearchForm(props) {
-    const { values, errors, handleChange, isFormValid } = useFormWithValidation();
+    const { values, errors, handleChange } = useFormWithValidation();
     const [searchQuery, setSearchQuery] = useState('');
     const [searchQueryError, setSearchQueryError] = useState(false);
 
@@ -14,8 +14,8 @@ function SearchForm(props) {
         setSearchQuery(values.search);
         if (!values.search) {
             setSearchQueryError(true);
-        };
-        props.onSearch();
+        } else { setSearchQueryError(false) };
+        props.onSearch(values.search);
     }
 
     return (
@@ -34,7 +34,7 @@ function SearchForm(props) {
                 <button className="search-form__button link-decoration" type="submit" />
             </form>
             <div className="search-form__switch-box">
-                <Switch isOn={props.isShortMovies} handleToggle={() => props.setIsShortMovies(!props.isShortMovies)} />
+                <Switch isOn={props.isShortMovies} handleToggle={props.onShortSwitch} />
                 <span className="search-form__switch-box-label">Короткометражки</span>
             </div>
             <span className="search-form__input-error">{(searchQueryError || errors.search) ? "Нужно ввести ключевое слово" : ""}</span>

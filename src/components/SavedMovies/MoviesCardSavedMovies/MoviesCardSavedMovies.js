@@ -1,13 +1,11 @@
 import { React } from 'react';
 import './MoviesCardSavedMovies.css';
 
-function MoviesCard({ handleDeleteMovie, buttonClassName, props }) {
-    const { duration, nameRU } = props;
-
-    // const [isLiked, setIsLiked] = useState(isSaved);
+function MoviesCard({ handleDeleteMovie, buttonClassName, card }) {
+    const { duration, nameRU } = card;
 
     function handleDeleteClick() {
-        handleDeleteMovie(props.movieId);
+        handleDeleteMovie(card.movieId);
     }
 
     function minsToHoursMins(duration) {
@@ -18,7 +16,9 @@ function MoviesCard({ handleDeleteMovie, buttonClassName, props }) {
 
     return (
         <>
-            <img src={`${props.image}`} className="movies-card__image" alt="Изображение для фильма в карточке" />
+            <a href={card.trailerLink} target="_blank" className="link-decoration">
+                <img src={`${card.image}`} className="movies-card__image" alt="Изображение для фильма в карточке" />
+            </a>
             <div className="movies-card__info">
                 <div className="movies-card__about">
                     <h3 className="movies-card__name">{nameRU}</h3>

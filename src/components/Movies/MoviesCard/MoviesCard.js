@@ -1,16 +1,15 @@
 import { React, useState } from 'react';
 import './MoviesCard.css';
 
-function MoviesCard({ buttonClassName, card, isLiked=false, handleDeleteMovieLike, handleAddMovieLike }) {
+function MoviesCard({ buttonClassName, card, isLiked = false, handleDeleteMovieLike, handleAddMovieLike }) {
     const { duration, nameRU } = card;
     // const [isLikedCard, setIsLikedCard] = useState(isLiked);
 
     function handleLikeClick() {
         // setIsLikedCard(!isLikedCard);
-        isLiked 
-        ? handleDeleteMovieLike(card.id)
-        : handleAddMovieLike(card)
-        console.log("Лайк в карточке переданный из листа: ", isLiked);
+        isLiked
+            ? handleDeleteMovieLike(card.id)
+            : handleAddMovieLike(card)
     }
 
     function minsToHoursMins(duration) {
@@ -21,7 +20,9 @@ function MoviesCard({ buttonClassName, card, isLiked=false, handleDeleteMovieLik
 
     return (
         <>
-            <img src={`https://api.nomoreparties.co/${card.image.url}`} className="movies-card__image" alt="Изображение для фильма в карточке" />
+            <a href={card.trailerLink} target="_blank" className="link-decoration">
+                <img src={`https://api.nomoreparties.co/${card.image.url}`} className="movies-card__image" alt="Изображение для фильма в карточке" />
+            </a>
             <div className="movies-card__info">
                 <div className="movies-card__about">
                     <h3 className="movies-card__name">{nameRU}</h3>

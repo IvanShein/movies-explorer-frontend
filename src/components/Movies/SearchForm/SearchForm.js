@@ -39,7 +39,7 @@ function SearchForm(props) {
                 <button className="search-form__button link-decoration" type="submit" />
             </form>
             <div className="search-form__switch-box">
-                <Switch isOn={props.isShortMovies} handleToggle={() => props.setIsShortMovies(!props.isShortMovies)} />
+                <Switch isOn={props.isShortMovies} handleToggle={props.onShortSwitch} />
                 <span className="search-form__switch-box-label">Короткометражки</span>
             </div>
             <span className="search-form__input-error">{(searchQueryError || errors.search) ? "Нужно ввести ключевое слово" : ""}</span>
