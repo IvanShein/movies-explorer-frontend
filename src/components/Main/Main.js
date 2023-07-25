@@ -2,7 +2,7 @@ import React from 'react';
 import './Main.css';
 
 import Header from '../Header/Header';
-import HeaderAuthorization from '../Header/HeaderAuthorization/HeaderAuthorization';
+
 import Footer from '../Footer/Footer';
 import Promo from './Promo/Promo';
 import NavTab from './NavTab/NavTab';
@@ -11,10 +11,10 @@ import Techs from './Techs/Techs';
 import AboutMe from './AboutMe/AboutMe';
 import Portfolio from './Portfolio/Portfolio';
 
-function Main() {
+function Main({loggedIn}) {
   return (
     <div>
-      <Header color={"purple"} child={<HeaderAuthorization />} />
+      <Header color={"purple"} loggedIn={loggedIn} />
       <main className="content">
         <Promo />
         <NavTab />

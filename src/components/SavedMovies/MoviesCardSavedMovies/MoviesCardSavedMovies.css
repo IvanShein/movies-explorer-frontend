@@ -19,12 +19,22 @@
     width: 100%;
 }
 
+.movies-card__about {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 70%;
+}
+
+
 .movies-card__name {
     margin: 0 0 10px;
     padding: 0;
     font-weight: 500;
     font-size: 13px;
     line-height: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 90%;
 }
 
 .movies-card__duration {

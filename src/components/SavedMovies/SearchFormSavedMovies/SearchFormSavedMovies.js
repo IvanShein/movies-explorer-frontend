@@ -1,27 +1,22 @@
-import React, { useState, useEffect }from 'react';
+import React from 'react';
+import { useEffect, useState } from 'react';
 import Switch from "../../Switch/Switch";
 import useFormWithValidation from '../../../utils/FormValidation';
-import './SearchForm.css';
+import './SearchFormSavedMovies.css';
 
 function SearchForm(props) {
     const { values, errors, handleChange } = useFormWithValidation();
+    const [searchQuery, setSearchQuery] = useState('');
     const [searchQueryError, setSearchQueryError] = useState(false);
 
     function handleSubmit(event) {
         event.preventDefault();
-        props.setSearchQuery(values.search);
+        setSearchQuery(values.search);
         if (!values.search) {
             setSearchQueryError(true);
         } else { setSearchQueryError(false) };
         props.onSearch(values.search);
     }
-
-    useEffect(() => {
-        const savedSearchQuery = localStorage.getItem('savedSearchQuery');
-            if (savedSearchQuery) {
-                values.search = savedSearchQuery;
-            }
-    }, []);
 
     return (
         <section className="search-form" onSubmit={handleSubmit}>

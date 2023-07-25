@@ -5,6 +5,10 @@
 На данном этапе реализована верстка страниц о макету.
 Ссылка на макет:
 https://disk.yandex.ru/d/OqdM5uiRRE-8jg
+Ссылка на сайт: portfolio-shein-ivan.nomoredomains.monster
+
+Ссылка на Pull request: 
+https://github.com/IvanShein/movies-explorer-frontend/pull/2
 ---
 ## Использованы технологии
 * HTML
@@ -19,7 +23,8 @@ https://disk.yandex.ru/d/OqdM5uiRRE-8jg
 * Методология (файловая структура) - Nested БЭМ (частично)
 
 ## Планы по доработке
-* реализация валидации форм
-* интеграция фронтенда с API сервиса со списком фильмов
-* интеграция с бэкендом приложения
-* реализация авторизации, регистрации, редактирования профиля
+* рефакторинг кода
+* исправление багов
+
+Ссылка на Pull request: 
+https://github.com/IvanShein/movies-explorer-frontend/pull/2

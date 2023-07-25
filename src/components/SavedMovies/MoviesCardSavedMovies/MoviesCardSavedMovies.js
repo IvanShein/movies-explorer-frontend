@@ -1,13 +1,11 @@
-import { React, useState } from 'react';
-import './MoviesCard.css';
+import { React } from 'react';
+import './MoviesCardSavedMovies.css';
 
-function MoviesCard({ buttonClassName, card, isLiked = false, handleDeleteMovieLike, handleAddMovieLike }) {
+function MoviesCard({ handleDeleteMovie, buttonClassName, card }) {
     const { duration, nameRU } = card;
 
-    function handleLikeClick() {
-        isLiked
-            ? handleDeleteMovieLike(card.id)
-            : handleAddMovieLike(card)
+    function handleDeleteClick() {
+        handleDeleteMovie(card.movieId);
     }
 
     function minsToHoursMins(duration) {
@@ -19,7 +17,7 @@ function MoviesCard({ buttonClassName, card, isLiked = false, handleDeleteMovieL
     return (
         <>
             <a href={card.trailerLink} target="_blank" className="link-decoration">
-                <img src={`https://api.nomoreparties.co/${card.image.url}`} className="movies-card__image" alt="Изображение для фильма в карточке" />
+                <img src={`${card.image}`} className="movies-card__image" alt="Изображение для фильма в карточке" />
             </a>
             <div className="movies-card__info">
                 <div className="movies-card__about">
@@ -27,8 +25,8 @@ function MoviesCard({ buttonClassName, card, isLiked = false, handleDeleteMovieL
                     <p className="movies-card__duration">{minsToHoursMins(duration)}</p>
                 </div>
                 <button
-                    className={`${buttonClassName} ${isLiked ? "" : "movies-card__button_not-liked"} link-decoration`}
-                    onClick={handleLikeClick}>
+                    className={`${buttonClassName} link-decoration`}
+                    onClick={handleDeleteClick}>
                 </button>
             </div>
         </>

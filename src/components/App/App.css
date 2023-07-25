@@ -9,7 +9,7 @@
     min-height: 100vh;
     font-style: normal;
     text-rendering: optimizeLegibility;
-  }
+}
 
 .link-decoration {
     transition: .2s;
@@ -19,4 +19,9 @@
     opacity: 0.6;
     cursor: pointer;
     transition: .2s;
+}
+
+.form-inactive {
+    pointer-events: none;
+    opacity: 0.5;
 }
