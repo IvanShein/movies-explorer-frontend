@@ -5,6 +5,10 @@
 На данном этапе реализована верстка страниц о макету.
 Ссылка на макет:
 https://disk.yandex.ru/d/OqdM5uiRRE-8jg
+Ссылка на сайт: portfolio-shein-ivan.nomoredomains.monster
+
+Ссылка на Pull request: 
+https://github.com/IvanShein/movies-explorer-frontend/pull/2
 ---
 ## Использованы технологии
 * HTML
@@ -21,3 +25,6 @@ https://disk.yandex.ru/d/OqdM5uiRRE-8jg
 ## Планы по доработке
 * рефакторинг кода
 * исправление багов
+
+Ссылка на Pull request: 
+https://github.com/IvanShein/movies-explorer-frontend/pull/2
