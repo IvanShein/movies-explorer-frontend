@@ -24,9 +24,9 @@ function MoviesCardList({ cards, buttonClassName, handleDeleteMovieFromSaved }) 
 
                 </ul>
 
-                : <dev className="movies-card-list__no-cards">
+                : <div className="movies-card-list__no-cards">
                     <h3 className="movies-card__info"> Ничего не найдено </h3>
-                </dev>
+                </div>
             }
 
         </section>

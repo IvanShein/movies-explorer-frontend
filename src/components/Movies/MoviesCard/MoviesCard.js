@@ -3,10 +3,8 @@ import './MoviesCard.css';
 
 function MoviesCard({ buttonClassName, card, isLiked = false, handleDeleteMovieLike, handleAddMovieLike }) {
     const { duration, nameRU } = card;
-    // const [isLikedCard, setIsLikedCard] = useState(isLiked);
 
     function handleLikeClick() {
-        // setIsLikedCard(!isLikedCard);
         isLiked
             ? handleDeleteMovieLike(card.id)
             : handleAddMovieLike(card)

@@ -1,3 +1,5 @@
+import { MAX_DURATION_OF_SHORT_MOVIE } from './Constants';
+
 export function filterByQuery(movies, query) {
     const moviesFilteredByQuery = movies.filter((movie) => {
       const movieRu = String(movie.nameRU).toLowerCase().trim();
@@ -9,5 +11,5 @@ export function filterByQuery(movies, query) {
   }
   
   export function filterByDuration(movies) {
-    return movies.filter((movie) => movie.duration < 40);
+    return movies.filter((movie) => movie.duration < MAX_DURATION_OF_SHORT_MOVIE);
   }

@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
+import {
+    NUMBER_OF_RENDERED_MOVIES_FOR_1280,
+    NUMBER_OF_RENDERED_MOVIES_FOR_1024,
+    NUMBER_OF_RENDERED_MOVIES_FOR_768,
+    NUMBER_OF_RENDERED_MOVIES_FOR_320,
+    ADD_NUMBER_OF_RENDERED_MOVIES_FOR_1280,
+    ADD_NUMBER_OF_RENDERED_MOVIES_FOR_1024,
+    ADD_NUMBER_OF_RENDERED_MOVIES_FOR_320_768
+} from '../../../utils/Constants';
 
 function MoviesCardList({ cards, buttonClassName, savedMovies, handleAddMovieLike, handleDeleteMovieLike }) {
     let [numberOfRenderedMovies, setNumberOfRenderedMovies] = useState(0);
@@ -9,13 +18,13 @@ function MoviesCardList({ cards, buttonClassName, savedMovies, handleAddMovieLik
     function handleNumberOfRenderedMovies() {
         const displaySize = window.innerWidth;
         if (displaySize > 1278) {
-            setNumberOfRenderedMovies(16);
+            setNumberOfRenderedMovies(NUMBER_OF_RENDERED_MOVIES_FOR_1280);
         } else if (displaySize > 1022) {
-            setNumberOfRenderedMovies(12);
+            setNumberOfRenderedMovies(NUMBER_OF_RENDERED_MOVIES_FOR_1024);
         } else if (displaySize > 766) {
-            setNumberOfRenderedMovies(8);
+            setNumberOfRenderedMovies(NUMBER_OF_RENDERED_MOVIES_FOR_768);
         } else {
-            setNumberOfRenderedMovies(5);
+            setNumberOfRenderedMovies(NUMBER_OF_RENDERED_MOVIES_FOR_320);
         };
         if (numberOfRenderedMovies >= cards.length) {
             numberOfRenderedMovies = cards.length;
@@ -25,11 +34,11 @@ function MoviesCardList({ cards, buttonClassName, savedMovies, handleAddMovieLik
     function renderMore() {
         const displaySize = window.innerWidth;
         if (displaySize > 1278) {
-            setNumberOfRenderedMovies(numberOfRenderedMovies + 4);
+            setNumberOfRenderedMovies(numberOfRenderedMovies + ADD_NUMBER_OF_RENDERED_MOVIES_FOR_1280);
         } else if (displaySize > 1022) {
-            setNumberOfRenderedMovies(numberOfRenderedMovies + 3);
+            setNumberOfRenderedMovies(numberOfRenderedMovies + ADD_NUMBER_OF_RENDERED_MOVIES_FOR_1024);
         } else {
-            setNumberOfRenderedMovies(numberOfRenderedMovies + 2);
+            setNumberOfRenderedMovies(numberOfRenderedMovies +  ADD_NUMBER_OF_RENDERED_MOVIES_FOR_320_768);
         };
         if (numberOfRenderedMovies >= cards.length) {
             numberOfRenderedMovies = cards.length;
@@ -53,9 +62,9 @@ function MoviesCardList({ cards, buttonClassName, savedMovies, handleAddMovieLik
 
     return (
         <section className="movies-card-list">
-           {cards.length > 0
-            ? <ul className="movies-card-list__grid">
-                    
+            {cards.length > 0
+                ? <ul className="movies-card-list__grid">
+
                     {cards.slice(0, numberOfRenderedMovies).map((card) =>
                         <li className="movies-card" key={card.id}>
                             <MoviesCard
@@ -67,12 +76,12 @@ function MoviesCardList({ cards, buttonClassName, savedMovies, handleAddMovieLik
                             />
                         </li>
                     )}
-                
-            </ul>
-            
-            : <dev className="movies-card-list__no-cards"> 
-            <h3 className="movies-card__info"> Ничего не найдено </h3> 
-            </dev>
+
+                </ul>
+
+                : <div className="movies-card-list__no-cards">
+                    <h3 className="movies-card__info"> Ничего не найдено </h3>
+                </div>
 
             }
             {
