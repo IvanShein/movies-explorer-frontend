@@ -48,27 +48,29 @@ function MoviesCardList({ cards, buttonClassName, savedMovies, handleAddMovieLik
 
     function isMovieSaved(movie) {
         const truth = savedMovies.find((savedMovie) => savedMovie.movieId === movie.id);
-        console.log("Фнкция определения лайкнутости (savedMovie._id, movie.id, вывод, сэвд мувис): ", truth, savedMovies);
+        console.log("Фнкция определения лайкнутости  movie.id, вывод, сэвд мувис): ", movie.id, truth, savedMovies);
         return truth;
-      }
+    }
 
     return (
         <section className="movies-card-list">
             <ul className="movies-card-list__grid">
-                {
+                {cards.length > 0
+                    ?
                     cards.slice(0, numberOfRenderedMovies).map((card) =>
-                    <li className="movies-card" key={card.id}>
-                        <MoviesCard
-                            card={card}
-                            buttonClassName={buttonClassName}
-                            isLiked={isMovieSaved(card)}
-                            handleDeleteMovieLike={handleDeleteMovieLike}
-                            handleAddMovieLike={handleAddMovieLike}
-                        />
-                    </li>
+                        <li className="movies-card" key={card.id}>
+                            <MoviesCard
+                                card={card}
+                                buttonClassName={buttonClassName}
+                                isLiked={isMovieSaved(card)}
+                                handleDeleteMovieLike={handleDeleteMovieLike}
+                                handleAddMovieLike={handleAddMovieLike}
+                            />
+                        </li>
                     )
-                }
 
+                    : <li></li>
+                }
             </ul>
             {
                 numberOfRenderedMovies < cards.length &&

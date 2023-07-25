@@ -1,8 +1,8 @@
 export function filterByQuery(movies, query) {
     const moviesFilteredByQuery = movies.filter((movie) => {
-      const movieRu = String(movie.nameRU).toLowerCase().trim();
-      const movieEn = String(movie.nameEN).toLowerCase().trim();
-      const queryText = query.toLowerCase().trim();
+      const movieRu = String(movie.nameRU).toLowerCase();
+      const movieEn = String(movie.nameEN).toLowerCase();
+      const queryText = query.toLowerCase();
       return movieRu.includes(queryText) || movieEn.includes(queryText);
     });
     return moviesFilteredByQuery;
